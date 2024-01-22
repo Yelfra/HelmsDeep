@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsdapvb5mxeug"]
+
+[ext_resource type="Script" path="res://Scripts/StateMachine/EnemyStates/EnemyPursueState.cs" id="1_dpp2h"]
+
+[node name="EnemyPursueState" type="Node2D"]
+script = ExtResource("1_dpp2h")

@@ -1,0 +1,113 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "HelmsDeep/1.0.0": {
+        "dependencies": {
+          "Godot.SourceGenerators": "4.2.0",
+          "GodotSharp": "4.2.0",
+          "GodotSharpEditor": "4.2.0",
+          "System.Collections": "4.3.0"
+        },
+        "runtime": {
+          "HelmsDeep.dll": {}
+        }
+      },
+      "Godot.SourceGenerators/4.2.0": {},
+      "GodotSharp/4.2.0": {
+        "runtime": {
+          "lib/net6.0/GodotSharp.dll": {
+            "assemblyVersion": "4.2.0.0",
+            "fileVersion": "4.2.0.0"
+          }
+        }
+      },
+      "GodotSharpEditor/4.2.0": {
+        "dependencies": {
+          "GodotSharp": "4.2.0"
+        },
+        "runtime": {
+          "lib/net6.0/GodotSharpEditor.dll": {
+            "assemblyVersion": "4.2.0.0",
+            "fileVersion": "4.2.0.0"
+          }
+        }
+      },
+      "Microsoft.NETCore.Platforms/1.1.0": {},
+      "Microsoft.NETCore.Targets/1.1.0": {},
+      "System.Collections/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Runtime/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0"
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HelmsDeep/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Godot.SourceGenerators/4.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MnpZZrUyN/7mKvgOX/OVUwx0D83bUU7Ie9VYpe2kqPj+fIe4udhRBGkx0qt42Ajzg3Pb2Ffq1lZlK8aV82niJA==",
+      "path": "godot.sourcegenerators/4.2.0",
+      "hashPath": "godot.sourcegenerators.4.2.0.nupkg.sha512"
+    },
+    "GodotSharp/4.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-z9JPrppNMikLCCWh1QBs65D9Y0v8B3kbj69apNy1Tizd/Q0zR063RDppwXaTF4UGozeqT3o96PNu+9vi1N8nYw==",
+      "path": "godotsharp/4.2.0",
+      "hashPath": "godotsharp.4.2.0.nupkg.sha512"
+    },
+    "GodotSharpEditor/4.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-THek5TbbXZQuMTT1I+XOGlY0uosXMXv2eAmGnYaSWQaJiSCa5tVGiSyngx+vVckrPlWpoCwsUmp5qSexs8xyGw==",
+      "path": "godotsharpeditor/4.2.0",
+      "hashPath": "godotsharpeditor.4.2.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+      "path": "microsoft.netcore.platforms/1.1.0",
+      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Targets/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
+      "path": "microsoft.netcore.targets/1.1.0",
+      "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
+    },
+    "System.Collections/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3Dcj85/TBdVpL5Zr+gEEBUuFe2icOnLalmEh9hfck1PTYbbyWuZgh4fmm2ysCLTrqLQw6t3TgTyJ+VLp+Qb+Lw==",
+      "path": "system.collections/4.3.0",
+      "hashPath": "system.collections.4.3.0.nupkg.sha512"
+    },
+    "System.Runtime/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JufQi0vPQ0xGnAczR13AUFglDyVYt4Kqnz1AZaiKZ5+GICq0/1MH/mO/eAJHt/mHW1zjKBJd7kV26SrxddAhiw==",
+      "path": "system.runtime/4.3.0",
+      "hashPath": "system.runtime.4.3.0.nupkg.sha512"
+    }
+  }
+}

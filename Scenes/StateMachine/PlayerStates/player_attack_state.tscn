@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://co6ec2x7dp3e4"]
+
+[ext_resource type="Script" path="res://Scripts/StateMachine/PlayerStates/PlayerAttackState.cs" id="1_qihdd"]
+
+[node name="PlayerAttackState" type="Node2D"]
+script = ExtResource("1_qihdd")
+
+[node name="AttackStateTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="AttackStateTimer" to="." method="OnAttackStateTimerTimeout"]

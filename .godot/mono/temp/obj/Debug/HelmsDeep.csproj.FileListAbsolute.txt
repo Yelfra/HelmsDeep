@@ -1,0 +1,17 @@
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\bin\Debug\HelmsDeep.deps.json
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\bin\Debug\HelmsDeep.runtimeconfig.json
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\bin\Debug\HelmsDeep.dll
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\bin\Debug\HelmsDeep.pdb
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\obj\Debug\HelmsDeep.csproj.AssemblyReference.cache
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\obj\Debug\HelmsDeep.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\obj\Debug\HelmsDeep.AssemblyInfoInputs.cache
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\obj\Debug\HelmsDeep.AssemblyInfo.cs
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\obj\Debug\HelmsDeep.csproj.CoreCompileInputs.cache
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\obj\Debug\HelmsDeep.csproj.CopyComplete
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\obj\Debug\HelmsDeep.dll
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\obj\Debug\refint\HelmsDeep.dll
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\obj\Debug\HelmsDeep.pdb
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\obj\Debug\HelmsDeep.genruntimeconfig.cache
+C:\Users\Franz Joseph\Desktop\Stuff\GameDeveloping\Godot\HelmsDeep\.godot\mono\temp\obj\Debug\ref\HelmsDeep.dll

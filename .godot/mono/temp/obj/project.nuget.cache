@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "rYoKak1lRnnW9BjTTA7MwS2e5SHcUXy6TA2TNbofSZgPut6l88LMnsBJW2qVYXgElatYhndO5x7LJy6/AOdc8w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Franz Joseph\\Desktop\\Stuff\\GameDeveloping\\Godot\\HelmsDeep\\HelmsDeep.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Franz Joseph\\.nuget\\packages\\godot.sourcegenerators\\4.2.0\\godot.sourcegenerators.4.2.0.nupkg.sha512",
+    "C:\\Users\\Franz Joseph\\.nuget\\packages\\godotsharp\\4.2.0\\godotsharp.4.2.0.nupkg.sha512",
+    "C:\\Users\\Franz Joseph\\.nuget\\packages\\godotsharpeditor\\4.2.0\\godotsharpeditor.4.2.0.nupkg.sha512",
+    "C:\\Users\\Franz Joseph\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Franz Joseph\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\Franz Joseph\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
+    "C:\\Users\\Franz Joseph\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}
