@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dm03ww3stwmpn"
+path="res://.godot/imported/glava.obj-7723f2b2b79a514b1612c54f1499d4bb.mesh"
+
+[deps]
+
+files=["res://.godot/imported/glava.obj-7723f2b2b79a514b1612c54f1499d4bb.mesh"]
+
+source_file="res://lab2/resources/glava/glava.obj"
+dest_files=["res://.godot/imported/glava.obj-7723f2b2b79a514b1612c54f1499d4bb.mesh", "res://.godot/imported/glava.obj-7723f2b2b79a514b1612c54f1499d4bb.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
