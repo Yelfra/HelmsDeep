@@ -28,9 +28,12 @@ public partial class EnemySpawner : Node2D {
         if (GetChildCount() > maxSpawnedAtSameTime) {
             return;
         }
-
+        
         RandomizeSpawnTime();
-        AddChild(_enemyScene.Instantiate());
+        CharacterBody2D enemyNode = (CharacterBody2D)_enemyScene.Instantiate();
+
+        //enemyNode.GlobalPosition = GlobalPosition;
+        AddChild(enemyNode);
     }
 
     private void RandomizeSpawnTime() {

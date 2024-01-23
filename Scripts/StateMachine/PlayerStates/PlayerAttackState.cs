@@ -67,16 +67,16 @@ public partial class PlayerAttackState : State {
 
     private void ChargedAttack() {
         if (_chargeTime >= _chargeFillTimeSeconds) {
-            GD.Print("Heavy Charged Attack!");
+            //GD.Print("Heavy Charged Attack!");
             character.attackManager.PrepareAttack("HeavyCharged");
         } else {
-            GD.Print("Charged Attack!");
+            //GD.Print("Charged Attack!");
             character.attackManager.PrepareAttack("Charged");
         }
         DefaultAttack();
     }
     private void QuickAttack() {
-        GD.Print("Quick Attack!");
+        //GD.Print("Quick Attack!");
         character.attackManager.PrepareAttack("Quick");
         DefaultAttack();
     }

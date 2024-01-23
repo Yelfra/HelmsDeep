@@ -4,7 +4,7 @@ using System.Linq;
 
 public partial class Player : Character {
 
-    public Godot.Collections.Array<string> bodiesHit = new Godot.Collections.Array<string>();
+    public Godot.Collections.Array<Enemy> bodiesHit = new Godot.Collections.Array<Enemy>();
     public PlayerCamera camera;
 
     public override void _Ready() {
@@ -20,9 +20,8 @@ public partial class Player : Character {
     }
 
     public void OnAttackBoxBodyEntered(Node2D body) {
-            GD.Print(body.Name);
-        if (body is Enemy enemy && !bodiesHit.Contains<string>(body.Name)) {
-            bodiesHit.Add(enemy.Name);
+        if (body is Enemy enemy && !bodiesHit.Contains(body)) {
+            bodiesHit.Add(enemy);
 
             attackManager.preparedAttack.position = GlobalPosition;
             enemy.health.TakeDamage(attackManager.preparedAttack);
