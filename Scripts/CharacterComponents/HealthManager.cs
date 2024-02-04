@@ -6,16 +6,14 @@ public partial class HealthManager : Node2D {
     public int currentHealth;
 
     [Export] float hurtDurationSeconds = 0.1f;
-    [Export] State hurtState;
     [Export] private uint _healthPointColumns = 5;
+    [Export] State hurtState;
 
     public bool hurt = false;
     public bool dead = false;
-    public float knockbackVelocity = 0f;
 
     private Character _character;
     private Timer _hurtTimer;
-    private Timer _knockbackTimer;
     private GridContainer _healthPointGrid;
 
     private Godot.Collections.Array<Control> _healthPoints = new Godot.Collections.Array<Control>();
@@ -26,15 +24,11 @@ public partial class HealthManager : Node2D {
         _character = GetParent<Character>();
 
         InstantiateHPGrid();
-        
+
         _hurtTimer = GetNode<Timer>("HurtTimer");
         _hurtTimer.WaitTime = hurtDurationSeconds;
-
-        _knockbackTimer = GetNode<Timer>("KnockbackTimer");
     }
 
-    public override void _Process(double delta) {
-    }
     public override void _PhysicsProcess(double delta) {
         // Status effects - Bleeding, on fire etc.
     }
@@ -44,11 +38,9 @@ public partial class HealthManager : Node2D {
         if (hurt || dead) {
             return;
         }
+
         // Hurt Flash
         _character.effectAnimationPlayer.Play("HurtFlash");
-        // Camera Shake (for player)
-        if (_character is Player player)
-            player.camera.Shake(player.health.hurtDurationSeconds);
 
         // Update HealthManager
         for (int i = currentHealth - 1; i > 0 && i > currentHealth - attack.damage - 1; i--) {
@@ -65,11 +57,8 @@ public partial class HealthManager : Node2D {
         }
 
         // Apply Knockback
-        if (attack.knockbackForce > 0) {
-            knockbackVelocity = Mathf.Sign(this.GlobalPosition.X - attack.position.X) * attack.knockbackForce;
-
-            _knockbackTimer.WaitTime = attack.knockbackDurationSeconds;
-            _knockbackTimer.Start();
+        if (_character.motionManager != null) {
+            _character.motionManager.Knockback(attack);
         }
 
         // If character can be hurt, enter hurt state.
@@ -83,9 +72,6 @@ public partial class HealthManager : Node2D {
 
     public void OnHurtTimerTimeout() {
         hurt = false;
-    }
-    public void OnKnockbackTimerTimeout() {
-        knockbackVelocity = 0f;
     }
 
     private void InstantiateHPGrid() {

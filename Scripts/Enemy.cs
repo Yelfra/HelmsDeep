@@ -1,7 +1,6 @@
 using Godot;
 using System;
 
-//_player = GetTree().CurrentScene.GetNode<CharacterBody2D>("Player");
 public partial class Enemy : Character {
 
     [Export] public float moveSpeed = 50f;
@@ -11,9 +10,6 @@ public partial class Enemy : Character {
         InitializeBoxes();
         InitializeAnimation();
         headParticle = GetNode<CpuParticles2D>("HeadParticle");
-    }
-
-    public override void _Process(double delta) {
     }
 
     public override void _PhysicsProcess(double delta) {
@@ -26,6 +22,7 @@ public partial class Enemy : Character {
 
             attackManager.preparedAttack.position = GlobalPosition;
             player.health.TakeDamage(attackManager.preparedAttack);
+            player.camera.Shake(attackManager.preparedAttack.damage);
         }
     }
 

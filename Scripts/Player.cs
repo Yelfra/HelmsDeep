@@ -13,8 +13,6 @@ public partial class Player : Character {
         camera = GetNode<PlayerCamera>("Camera2D");
     }
 
-    public override void _Process(double delta) {
-    }
     public override void _PhysicsProcess(double delta) {
         MoveAndSlide();
     }
@@ -26,7 +24,7 @@ public partial class Player : Character {
             attackManager.preparedAttack.position = GlobalPosition;
             enemy.health.TakeDamage(attackManager.preparedAttack);
 
-            camera.Shake();
+            camera.Shake(attackManager.preparedAttack.damage);
         }
     }
 

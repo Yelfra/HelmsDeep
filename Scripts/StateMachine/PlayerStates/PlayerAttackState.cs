@@ -45,15 +45,15 @@ public partial class PlayerAttackState : State {
                 PlayChargeAttackAnimation();
             }
             if (_chargeTime >= _chargeFillTimeSeconds) { // Executed during charge.
-                ((Player)character).camera.Shake();
+                //((Player)character).camera.Shake(0.05f);
             }
         }
 
         character.horizontalDirection = Input.GetAxis("move_left", "move_right");
     }
     public override void PhysicsUpdate(double delta) {
-        float knockbackVelocity = character.health.knockbackVelocity;
-        character.velocity.X = _chargingAttack ? knockbackVelocity : character.horizontalDirection * moveSpeed + knockbackVelocity;
+        float pushVelocity = character.motionManager.pushVelocity;
+        character.velocity.X = _chargingAttack ? pushVelocity : character.horizontalDirection * moveSpeed + pushVelocity;
         character.Velocity = character.velocity;
 
         if (!_attackInMotion && character.horizontalDirection != 0) { // Cannot change direction during swing.
@@ -82,6 +82,9 @@ public partial class PlayerAttackState : State {
     }
     private void DefaultAttack() {
         PlayAttackAnimation();
+
+        character.motionManager.AttackDash(character.attackManager.preparedAttack);
+
         _attackSwitch = !_attackSwitch;
         _attackStateTimer.WaitTime = character.animationPlayer.CurrentAnimationLength;
         _attackStateTimer.Start();

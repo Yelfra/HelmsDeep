@@ -1,17 +1,19 @@
 using Godot;
 using System;
 
+//_player = GetTree().CurrentScene.GetNode<CharacterBody2D>("Player");
 public abstract partial class Character : CharacterBody2D {
-
     [Export] public HealthManager health;
     [Export] public AttackManager attackManager;
+    [Export] public MotionManager motionManager;
 
     [Signal] public delegate void CallTransitionedEventHandler(string stateName);
 
     public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
     public Vector2 velocity = Vector2.Zero;
-    public float horizontalDirection;
+    public float horizontalDirection = 0f;
+    public int facingDirection = 1;
 
     public CollisionShape2D hitbox;
 
@@ -33,11 +35,13 @@ public abstract partial class Character : CharacterBody2D {
 
     public void FaceDirection(float direction) {
         if (direction < 0) {
+            facingDirection = -1;
             GetNode<Sprite2D>("Sprite2D").FlipH = true;
 
             Vector2 position = attackBoxShape.Position;
             attackBoxShape.Position = new Vector2(-Mathf.Abs(position.X), position.Y);
         } else if (direction > 0) {
+            facingDirection = 1;
             GetNode<Sprite2D>("Sprite2D").FlipH = false;
 
             Vector2 position = attackBoxShape.Position;

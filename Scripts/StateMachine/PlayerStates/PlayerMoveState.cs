@@ -39,7 +39,7 @@ public partial class PlayerMoveState : State {
         }
     }
     public override void PhysicsUpdate(double delta) {
-        character.velocity.X = character.horizontalDirection * _currentSpeed + character.health.knockbackVelocity;
+        character.velocity.X = character.horizontalDirection * _currentSpeed + character.motionManager.pushVelocity;
         character.Velocity = character.velocity;
         character.FaceDirection(character.horizontalDirection);
     }

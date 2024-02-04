@@ -29,7 +29,7 @@ public partial class EnemyPursueState : State {
         character.FaceDirection(character.horizontalDirection);
 
         if (Mathf.Abs(character.horizontalDirection) > nearestDistance) {
-            character.velocity.X = Mathf.Sign(character.horizontalDirection) * ((Enemy)character).moveSpeed + character.health.knockbackVelocity;
+            character.velocity.X = Mathf.Sign(character.horizontalDirection) * ((Enemy)character).moveSpeed + character.motionManager.pushVelocity;
             character.Velocity = character.velocity;
         } else {
             EmitSignal(SignalName.Transitioned, this, "EnemyAttackState");

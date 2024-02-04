@@ -1,15 +1,16 @@
-[gd_scene load_steps=29 format=3 uid="uid://yc66owc7x0yi"]
+[gd_scene load_steps=30 format=3 uid="uid://yc66owc7x0yi"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_okncq"]
 [ext_resource type="Texture2D" uid="uid://by8v6m0pc7raj" path="res://Assets/Aragorn.png" id="2_gm0xv"]
 [ext_resource type="Script" path="res://Scripts/PlayerCamera.cs" id="2_ukrjt"]
 [ext_resource type="PackedScene" uid="uid://b5p6dtecwmmqj" path="res://Scenes/StateMachine/state_machine.tscn" id="3_47i5p"]
 [ext_resource type="Shader" path="res://Shaders/hurt_flash.gdshader" id="3_fvl0h"]
+[ext_resource type="PackedScene" uid="uid://cfsklhhpoc8qr" path="res://Scenes/CharacterComponents/motion_manager.tscn" id="5_hy0ot"]
+[ext_resource type="PackedScene" uid="uid://b27piakcsvodx" path="res://Scenes/CharacterComponents/health_manager.tscn" id="6_si1cx"]
 [ext_resource type="PackedScene" uid="uid://dfro4mroyjn2g" path="res://Scenes/attack.tscn" id="7_1u57s"]
+[ext_resource type="PackedScene" uid="uid://bdbrg4adpvecf" path="res://Scenes/CharacterComponents/attack_manager.tscn" id="7_2uqhg"]
 [ext_resource type="PackedScene" uid="uid://bifpqdt2juh28" path="res://Scenes/StateMachine/PlayerStates/player_move_state.tscn" id="7_kvoy7"]
 [ext_resource type="PackedScene" uid="uid://co6ec2x7dp3e4" path="res://Scenes/StateMachine/PlayerStates/player_attack_state.tscn" id="7_oxxbt"]
-[ext_resource type="PackedScene" uid="uid://b27piakcsvodx" path="res://Scenes/health_manager.tscn" id="8_xyv68"]
-[ext_resource type="PackedScene" uid="uid://bdbrg4adpvecf" path="res://Scenes/attack_manager.tscn" id="9_3mdqy"]
 
 [sub_resource type="Animation" id="Animation_5wiwd"]
 resource_name = "Attack-1-Hold"
@@ -315,21 +316,19 @@ _data = {
 size = Vector2(12, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ejhn"]
-size = Vector2(34, 32)
+size = Vector2(45, 32)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "attackManager")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "attackManager", "motionManager")]
 collision_layer = 2
 script = ExtResource("1_okncq")
 health = NodePath("HealthManager")
 attackManager = NodePath("AttackManager")
+motionManager = NodePath("MotionManager")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -32)
 position_smoothing_speed = 8.0
 script = ExtResource("2_ukrjt")
-
-[node name="ShakeTimer" type="Timer" parent="Camera2D"]
-one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -361,23 +360,27 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
-position = Vector2(23, -16)
+position = Vector2(17.5, -16)
 shape = SubResource("RectangleShape2D_4ejhn")
 
-[node name="HealthManager" parent="." instance=ExtResource("8_xyv68")]
+[node name="MotionManager" parent="." instance=ExtResource("5_hy0ot")]
+
+[node name="HealthManager" parent="." instance=ExtResource("6_si1cx")]
 hurtDurationSeconds = 0.5
 
-[node name="AttackManager" parent="." instance=ExtResource("9_3mdqy")]
+[node name="AttackManager" parent="." instance=ExtResource("7_2uqhg")]
 
 [node name="Quick" parent="AttackManager" instance=ExtResource("7_1u57s")]
 knockbackForce = 50.0
 
 [node name="Charged" parent="AttackManager" instance=ExtResource("7_1u57s")]
 damage = 2
+dashForce = 100.0
 
 [node name="HeavyCharged" parent="AttackManager" instance=ExtResource("7_1u57s")]
 damage = 5
 knockbackForce = 150.0
+dashForce = 200.0
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("character", "initialState") instance=ExtResource("3_47i5p")]
 character = NodePath("..")

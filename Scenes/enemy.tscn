@@ -1,12 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://dudh0ki8j4bsx"]
+[gd_scene load_steps=27 format=3 uid="uid://dudh0ki8j4bsx"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.cs" id="1_q0kdg"]
 [ext_resource type="Shader" path="res://Shaders/hurt_flash.gdshader" id="2_k22yu"]
 [ext_resource type="Texture2D" uid="uid://cm74qco5e5rhl" path="res://Assets/UrukHai.png" id="2_m6dwn"]
-[ext_resource type="PackedScene" uid="uid://bdbrg4adpvecf" path="res://Scenes/attack_manager.tscn" id="3_axqsw"]
+[ext_resource type="PackedScene" uid="uid://bdbrg4adpvecf" path="res://Scenes/CharacterComponents/attack_manager.tscn" id="3_axqsw"]
 [ext_resource type="PackedScene" uid="uid://b5p6dtecwmmqj" path="res://Scenes/StateMachine/state_machine.tscn" id="3_nbnit"]
 [ext_resource type="PackedScene" uid="uid://dsdapvb5mxeug" path="res://Scenes/StateMachine/EnemyStates/enemy_pursue_state.tscn" id="4_0fxrs"]
-[ext_resource type="PackedScene" uid="uid://b27piakcsvodx" path="res://Scenes/health_manager.tscn" id="4_8jpea"]
+[ext_resource type="PackedScene" uid="uid://b27piakcsvodx" path="res://Scenes/CharacterComponents/health_manager.tscn" id="4_8jpea"]
+[ext_resource type="PackedScene" uid="uid://cfsklhhpoc8qr" path="res://Scenes/CharacterComponents/motion_manager.tscn" id="4_x20dr"]
 [ext_resource type="PackedScene" uid="uid://bexn8wt8aq2db" path="res://Scenes/StateMachine/EnemyStates/enemy_attack_state.tscn" id="5_b6vxn"]
 [ext_resource type="PackedScene" uid="uid://dfro4mroyjn2g" path="res://Scenes/attack.tscn" id="6_eaq6t"]
 [ext_resource type="PackedScene" uid="uid://d2bcorblx24e4" path="res://Scenes/StateMachine/hurt_state.tscn" id="7_pfd6a"]
@@ -92,6 +93,23 @@ tracks/0/keys = {
 "values": [Vector2i(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_3jx7u"]
+resource_name = "Idle"
+length = 2.00001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_86ju1"]
 length = 0.001
 tracks/0/type = "value"
@@ -129,6 +147,7 @@ _data = {
 "Attack": SubResource("Animation_3o7dn"),
 "Death": SubResource("Animation_uvmaq"),
 "Hurt": SubResource("Animation_tkexa"),
+"Idle": SubResource("Animation_3jx7u"),
 "RESET": SubResource("Animation_86ju1"),
 "Run": SubResource("Animation_v2jdc")
 }
@@ -179,13 +198,14 @@ _data = {
 size = Vector2(12, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73crr"]
-size = Vector2(17, 32)
+size = Vector2(32, 32)
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("health", "attackManager")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("health", "attackManager", "motionManager")]
 collision_layer = 4
 script = ExtResource("1_q0kdg")
 health = NodePath("HealthManager")
 attackManager = NodePath("AttackManager")
+motionManager = NodePath("MotionManager")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -217,10 +237,13 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
-position = Vector2(17.5, -16)
+position = Vector2(10, -16)
 shape = SubResource("RectangleShape2D_73crr")
 
+[node name="MotionManager" parent="." instance=ExtResource("4_x20dr")]
+
 [node name="HealthManager" parent="." node_paths=PackedStringArray("hurtState") instance=ExtResource("4_8jpea")]
+maxHealth = 5
 hurtState = NodePath("../StateMachine/HurtState")
 
 [node name="AttackManager" parent="." instance=ExtResource("3_axqsw")]
