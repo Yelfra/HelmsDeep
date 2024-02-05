@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdbrg4adpvecf"]
+[gd_scene load_steps=3 format=3 uid="uid://bdbrg4adpvecf"]
 
 [ext_resource type="Script" path="res://Scripts/CharacterComponents/AttackManager.cs" id="1_wida8"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d6yvn"]
+resource_local_to_scene = true
+size = Vector2(32, 32)
+
 [node name="AttackManager" type="Node2D"]
 script = ExtResource("1_wida8")
+
+[node name="AttackBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
+position = Vector2(16, -16)
+shape = SubResource("RectangleShape2D_d6yvn")
+
+[connection signal="body_entered" from="AttackBox" to="." method="OnAttackBoxBodyEntered"]

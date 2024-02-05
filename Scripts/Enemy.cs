@@ -16,15 +16,15 @@ public partial class Enemy : Character {
         MoveAndSlide();
     }
 
-    public void OnAttackBoxBodyEntered(Node2D body) {
-        if (body is Player player) {
-            attackBox.SetDeferred("Monitoring", false);
+    //public void OnAttackBoxBodyEntered(Node2D body) {
+    //    if (body is Player player) {
+    //        attackBox.SetDeferred("Monitoring", false);
 
-            attackManager.preparedAttack.position = GlobalPosition;
-            player.health.TakeDamage(attackManager.preparedAttack);
-            player.camera.Shake(attackManager.preparedAttack.damage);
-        }
-    }
+    //        attackManager.preparedAttack.position = GlobalPosition;
+    //        player.health.TakeDamage(attackManager.preparedAttack);
+    //        player.camera.Shake(attackManager.preparedAttack.damage);
+    //    }
+    //}
 
     public override void Death() {
         EmitSignal(SignalName.CallTransitioned, "EnemyDeathState");

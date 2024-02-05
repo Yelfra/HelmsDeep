@@ -315,7 +315,8 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ib5dj"]
 size = Vector2(12, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ejhn"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3iefh"]
+resource_local_to_scene = true
 size = Vector2(45, 32)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "attackManager", "motionManager")]
@@ -353,22 +354,19 @@ libraries = {
 position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_ib5dj")
 
-[node name="AttackBox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
-position = Vector2(17.5, -16)
-shape = SubResource("RectangleShape2D_4ejhn")
-
 [node name="MotionManager" parent="." instance=ExtResource("5_hy0ot")]
 
 [node name="HealthManager" parent="." instance=ExtResource("6_si1cx")]
 hurtDurationSeconds = 0.5
 
 [node name="AttackManager" parent="." instance=ExtResource("7_2uqhg")]
+
+[node name="AttackBox" parent="AttackManager" index="0"]
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="AttackManager/AttackBox" index="0"]
+position = Vector2(17, -16)
+shape = SubResource("RectangleShape2D_3iefh")
 
 [node name="Quick" parent="AttackManager" instance=ExtResource("7_1u57s")]
 knockbackForce = 50.0
@@ -391,4 +389,4 @@ metadata/_edit_group_ = true
 
 [node name="PlayerMoveState" parent="StateMachine" instance=ExtResource("7_kvoy7")]
 
-[connection signal="body_entered" from="AttackBox" to="." method="OnAttackBoxBodyEntered"]
+[editable path="AttackManager"]

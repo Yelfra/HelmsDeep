@@ -17,16 +17,11 @@ public abstract partial class Character : CharacterBody2D {
 
     public CollisionShape2D hitbox;
 
-    public Area2D attackBox;
-    protected CollisionShape2D attackBoxShape;
-
     public AnimationPlayer animationPlayer;
     public AnimationPlayer effectAnimationPlayer;
 
     public void InitializeBoxes() {
         hitbox = GetNode<CollisionShape2D>("Hitbox");
-        attackBox = GetNode<Area2D>("AttackBox");
-        attackBoxShape = attackBox.GetNode<CollisionShape2D>("CollisionShape2D");
     }
     public void InitializeAnimation() {
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -37,15 +32,14 @@ public abstract partial class Character : CharacterBody2D {
         if (direction < 0) {
             facingDirection = -1;
             GetNode<Sprite2D>("Sprite2D").FlipH = true;
-
-            Vector2 position = attackBoxShape.Position;
-            attackBoxShape.Position = new Vector2(-Mathf.Abs(position.X), position.Y);
         } else if (direction > 0) {
             facingDirection = 1;
             GetNode<Sprite2D>("Sprite2D").FlipH = false;
+        }
 
-            Vector2 position = attackBoxShape.Position;
-            attackBoxShape.Position = new Vector2(Mathf.Abs(position.X), position.Y);
+        // Reposition AttackBox Left/Right
+        if (attackManager != null) {
+            attackManager.RepositionAttackBox(facingDirection);
         }
     }
 

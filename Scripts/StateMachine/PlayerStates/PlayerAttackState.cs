@@ -7,7 +7,6 @@ public partial class PlayerAttackState : State {
     [Export] private float _chargeFillTimeSeconds = 1f;
     [Export] private float _chargeStartTimeSeconds = 0.2f;
 
-    private Timer _attackStateTimer;
     private float _chargeTime = 0f;
 
     private bool _attackSwitch = false; // Switching between first and second attack animation.
@@ -16,14 +15,12 @@ public partial class PlayerAttackState : State {
     private bool _chargingAttack = true; // Attack is currently being charged.
 
     public override void _Ready() {
-        _attackStateTimer = GetNode<Timer>("AttackStateTimer");
     }
 
     public override void Enter() {
     }
     public override void Exit() {
-        character.attackBox.Monitoring = false;
-        ((Player)character).bodiesHit.Clear();
+        character.attackManager.EndAttack();
     }
 
     public override void Update(double delta) {
@@ -86,18 +83,15 @@ public partial class PlayerAttackState : State {
         character.motionManager.AttackDash(character.attackManager.preparedAttack);
 
         _attackSwitch = !_attackSwitch;
-        _attackStateTimer.WaitTime = character.animationPlayer.CurrentAnimationLength;
-        _attackStateTimer.Start();
 
         _attackInMotion = true;
     }
 
     public void AttackStart() {
-        character.attackBox.Monitoring = true;
+        character.attackManager.StartAttack();
     }
     public void AttackEnd() {
-        character.attackBox.Monitoring = false;
-        ((Player)character).bodiesHit.Clear();
+        character.attackManager.EndAttack();
 
         _attackInMotion = false;
     }
