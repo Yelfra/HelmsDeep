@@ -11,6 +11,9 @@ public partial class HealthManager : Node2D {
 
     public bool hurt = false;
     public bool dead = false;
+    public bool invulnerable = false;
+
+    public float invulnerableTime = 0f;
 
     private Character _character;
     private Timer _hurtTimer;
@@ -29,14 +32,20 @@ public partial class HealthManager : Node2D {
         _hurtTimer.WaitTime = hurtDurationSeconds;
     }
 
+    public override void _Process(double delta) {
+        if (invulnerable) {
+            invulnerableTime += (float)delta;
+        }
+    }
+
     public override void _PhysicsProcess(double delta) {
         // Status effects - Bleeding, on fire etc.
     }
 
-    public void TakeDamage(Attack attack) {
+    public bool TakeDamage(Attack attack) {
         // Cannot take damage during hurt time.
-        if (hurt || dead) {
-            return;
+        if (hurt || dead || invulnerable) {
+            return false;
         }
 
         // Hurt Flash
@@ -53,7 +62,7 @@ public partial class HealthManager : Node2D {
             dead = true;
             _healthPointGrid.QueueFree();
             _character.Death();
-            return;
+            return true;
         }
 
         // Apply Knockback
@@ -68,6 +77,7 @@ public partial class HealthManager : Node2D {
             if (hurtState != null)
                 _character.EmitSignal(Character.SignalName.CallTransitioned, hurtState.Name);
         }
+        return true;
     }
 
     public void OnHurtTimerTimeout() {

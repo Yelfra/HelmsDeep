@@ -3,7 +3,8 @@ using System;
 
 public partial class EnemyPursueState : State {
 
-    [Export] int nearestDistance = 25;
+    [Export] int maxDistance = 25;
+    [Export] int minDistance = 15;
 
     private CharacterBody2D _player;
 
@@ -28,9 +29,14 @@ public partial class EnemyPursueState : State {
         character.horizontalDirection = _player.GlobalPosition.X - character.GlobalPosition.X;
         character.FaceDirection(character.horizontalDirection);
 
-        if (Mathf.Abs(character.horizontalDirection) > nearestDistance) {
-            character.velocity.X = Mathf.Sign(character.horizontalDirection) * ((Enemy)character).moveSpeed + character.motionManager.pushVelocity;
-            character.Velocity = character.velocity;
+        float distance = Mathf.Abs(character.horizontalDirection);
+
+        if (distance > maxDistance) {
+            float xVelocity = Mathf.Sign(character.horizontalDirection) * ((Enemy)character).moveSpeed + character.motionManager.pushVelocity;
+            character.Velocity = new Vector2(xVelocity, 0f);
+        } else if (distance < minDistance) {
+            float xVelocity = -Mathf.Sign(character.horizontalDirection) * ((Enemy)character).moveSpeed + character.motionManager.pushVelocity;
+            character.Velocity = new Vector2(xVelocity, 0f);
         } else {
             EmitSignal(SignalName.Transitioned, this, "EnemyAttackState");
         }

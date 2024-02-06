@@ -12,7 +12,7 @@ public partial class PlayerAttackState : State {
     private bool _attackSwitch = false; // Switching between first and second attack animation.
     //private bool _attackQueued = false; // Attack to be executed after the current attack ends.
     private bool _attackInMotion = false; // Current attack is in motion.
-    private bool _chargingAttack = true; // Attack is currently being charged.
+    private bool _chargingAttack = false; // Attack is currently being charged.
 
     public override void _Ready() {
     }
@@ -21,10 +21,13 @@ public partial class PlayerAttackState : State {
     }
     public override void Exit() {
         character.attackManager.EndAttack();
+        _attackInMotion = false;
+        _chargingAttack = false;
+        _chargeTime = 0f;
     }
 
     public override void Update(double delta) {
-        // Release
+        // Release Attack
         if (Input.IsActionJustReleased("attack") && _chargingAttack) {
             _chargingAttack = false;
             if (_chargeTime >= _chargeStartTimeSeconds) {
@@ -32,9 +35,8 @@ public partial class PlayerAttackState : State {
             } else {
                 QuickAttack();
             }
-            _chargeTime = 0f;
         }
-        // Press
+        // Press Attack
         if (Input.IsActionPressed("attack") && !_attackInMotion) {
             _chargeTime += (float)delta;
             if (!_chargingAttack) { // Executed only once per charge.
@@ -46,12 +48,18 @@ public partial class PlayerAttackState : State {
             }
         }
 
+        // Block
+        if (Input.IsActionJustPressed("block")) {
+            EmitSignal(SignalName.Transitioned, this, "PlayerBlockState");
+        }
+
+        // Movement
         character.horizontalDirection = Input.GetAxis("move_left", "move_right");
     }
     public override void PhysicsUpdate(double delta) {
         float pushVelocity = character.motionManager.pushVelocity;
-        character.velocity.X = _chargingAttack ? pushVelocity : character.horizontalDirection * moveSpeed + pushVelocity;
-        character.Velocity = character.velocity;
+        float xVelocity = _chargingAttack ? pushVelocity : character.horizontalDirection * moveSpeed + pushVelocity;
+        character.Velocity = new Vector2(xVelocity, 0f);
 
         if (!_attackInMotion && character.horizontalDirection != 0) { // Cannot change direction during swing.
             character.FaceDirection(character.horizontalDirection);
@@ -70,6 +78,7 @@ public partial class PlayerAttackState : State {
             //GD.Print("Charged Attack!");
             character.attackManager.PrepareAttack("Charged");
         }
+        _chargeTime = 0f;
         DefaultAttack();
     }
     private void QuickAttack() {
@@ -83,7 +92,6 @@ public partial class PlayerAttackState : State {
         character.motionManager.AttackDash(character.attackManager.preparedAttack);
 
         _attackSwitch = !_attackSwitch;
-
         _attackInMotion = true;
     }
 
@@ -92,7 +100,6 @@ public partial class PlayerAttackState : State {
     }
     public void AttackEnd() {
         character.attackManager.EndAttack();
-
         _attackInMotion = false;
     }
 

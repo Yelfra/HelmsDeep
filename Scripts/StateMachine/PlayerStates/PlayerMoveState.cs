@@ -17,13 +17,21 @@ public partial class PlayerMoveState : State {
     public override void Enter() {
         Idle();
     }
-    public override void Exit() {}
+    public override void Exit() {
+    }
 
     public override void Update(double delta) {
-        if (Input.IsActionPressed("attack")) {
+        // Attack
+        if (Input.IsActionJustPressed("attack")) {
             EmitSignal(SignalName.Transitioned, this, "PlayerAttackState");
         }
 
+        // Block
+        if (Input.IsActionJustPressed("block")) {
+            EmitSignal(SignalName.Transitioned, this, "PlayerBlockState");
+        }
+
+        // Movement
         character.horizontalDirection = Input.GetAxis("move_left", "move_right");
         _isRunning = Input.IsActionPressed("run");
 
@@ -39,8 +47,8 @@ public partial class PlayerMoveState : State {
         }
     }
     public override void PhysicsUpdate(double delta) {
-        character.velocity.X = character.horizontalDirection * _currentSpeed + character.motionManager.pushVelocity;
-        character.Velocity = character.velocity;
+        float xVelocity = character.horizontalDirection * _currentSpeed + character.motionManager.pushVelocity;
+        character.Velocity = new Vector2(xVelocity, 0f);
         character.FaceDirection(character.horizontalDirection);
     }
 

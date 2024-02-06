@@ -6,8 +6,8 @@ public partial class HurtState : State {
     public override void Enter() {
         character.animationPlayer.Play("Hurt");
 
-        character.velocity.X = character.motionManager.pushVelocity;
-        character.Velocity = character.velocity;
+        //character.velocity.X = character.motionManager.pushVelocity;
+        character.Velocity = new Vector2(character.motionManager.pushVelocity, 0f);
     }
     public override void Exit() {}
 

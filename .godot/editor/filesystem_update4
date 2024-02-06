@@ -1,8 +1,8 @@
-res://Scenes/CharacterComponents/attack_manager.tscn
+res://Scenes/the_ramparts.tscn
 res://Shaders/hurt_flash.gdshader
 res://Scenes/player.tscn
 res://Scenes/enemy.tscn
-res://Scenes/the_ramparts.tscn
+res://Scenes/CharacterComponents/attack_manager.tscn
 res://Scenes/attack.tscn
 res://Scenes/enemy_spawner.tscn
 res://Scenes/CharacterComponents/health_manager.tscn
@@ -25,3 +25,5 @@ res://Scripts/StateMachine/PlayerStates/PlayerAttackState.cs
 res://Scripts/StateMachine/PlayerStates/PlayerMoveState.cs
 res://Scripts/StateMachine/State.cs
 res://Scripts/StateMachine/StateMachine.cs
+res://Scenes/StateMachine/PlayerStates/player_block_state.tscn
+res://Scripts/StateMachine/PlayerStates/PlayerBlockState.cs

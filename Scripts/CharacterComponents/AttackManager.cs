@@ -33,12 +33,12 @@ public partial class AttackManager : Node2D {
             _bodiesHit.Add(character);
 
             preparedAttack.position = GlobalPosition;
-            character.health.TakeDamage(preparedAttack);
-
-            if (GetParent() is Player playerAgressor) {
-                playerAgressor.camera.Shake(preparedAttack.damage);
-            } else if (character is Player playerVictim) {
-                playerVictim.camera.Shake(preparedAttack.damage);
+            if (character.health.TakeDamage(preparedAttack)) {
+                if (GetParent() is Player playerAgressor) {
+                    playerAgressor.camera.Shake(preparedAttack.damage);
+                } else if (character is Player playerVictim) {
+                    playerVictim.camera.Shake(preparedAttack.damage);
+                }
             }
         }
     }

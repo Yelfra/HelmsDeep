@@ -16,10 +16,13 @@ public partial class EnemyAttackState : State {
     public override void Update(double delta) {
     }
     public override void PhysicsUpdate(double delta) {
+        float xVelocity = character.motionManager.pushVelocity;
+        character.Velocity = new Vector2(xVelocity, 0f);
     }
 
     public void AttackStart() {
         character.attackManager.StartAttack();
+        character.motionManager.AttackDash(character.attackManager.preparedAttack);
     }
     public void AttackEnd() {
         character.attackManager.EndAttack();

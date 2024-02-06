@@ -7,6 +7,8 @@ public partial class GameManager : Node2D {
 
     public override void _Ready() {
         currentScene = GetTree().CurrentScene;
+
+        Input.MouseMode = Input.MouseModeEnum.Hidden;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

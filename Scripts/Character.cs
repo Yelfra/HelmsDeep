@@ -11,7 +11,6 @@ public abstract partial class Character : CharacterBody2D {
 
     public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
-    public Vector2 velocity = Vector2.Zero;
     public float horizontalDirection = 0f;
     public int facingDirection = 1;
 
@@ -19,6 +18,9 @@ public abstract partial class Character : CharacterBody2D {
 
     public AnimationPlayer animationPlayer;
     public AnimationPlayer effectAnimationPlayer;
+
+    public override void _PhysicsProcess(double delta) {
+    }
 
     public void InitializeBoxes() {
         hitbox = GetNode<CollisionShape2D>("Hitbox");

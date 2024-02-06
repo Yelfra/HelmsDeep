@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://yc66owc7x0yi"]
+[gd_scene load_steps=31 format=3 uid="uid://yc66owc7x0yi"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_okncq"]
 [ext_resource type="Texture2D" uid="uid://by8v6m0pc7raj" path="res://Assets/Aragorn.png" id="2_gm0xv"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bdbrg4adpvecf" path="res://Scenes/CharacterComponents/attack_manager.tscn" id="7_2uqhg"]
 [ext_resource type="PackedScene" uid="uid://bifpqdt2juh28" path="res://Scenes/StateMachine/PlayerStates/player_move_state.tscn" id="7_kvoy7"]
 [ext_resource type="PackedScene" uid="uid://co6ec2x7dp3e4" path="res://Scenes/StateMachine/PlayerStates/player_attack_state.tscn" id="7_oxxbt"]
+[ext_resource type="PackedScene" uid="uid://cs0u4741iakf3" path="res://Scenes/StateMachine/PlayerStates/player_block_state.tscn" id="12_2vn23"]
 
 [sub_resource type="Animation" id="Animation_5wiwd"]
 resource_name = "Attack-1-Hold"
@@ -388,5 +389,7 @@ metadata/_edit_group_ = true
 [node name="PlayerAttackState" parent="StateMachine" instance=ExtResource("7_oxxbt")]
 
 [node name="PlayerMoveState" parent="StateMachine" instance=ExtResource("7_kvoy7")]
+
+[node name="PlayerBlockState" parent="StateMachine" instance=ExtResource("12_2vn23")]
 
 [editable path="AttackManager"]
