@@ -5,21 +5,21 @@ using System.Collections.Generic;
 public partial class AttackManager : Node2D {
 
     public Attack preparedAttack;
-    public Dictionary<string, Attack> attacks;
+    public Dictionary<string, Attack> attacks = new Dictionary<string, Attack>();
+    public Dictionary<string, Area2D> attackBoxes = new Dictionary<string, Area2D>();
 
-    private Godot.Collections.Array<Character> _bodiesHit = new Godot.Collections.Array<Character>();
-
-    private Area2D _attackBox;
-    private CollisionShape2D _attackBoxShape;
+    private Godot.Collections.Array<HitBox> _attackedHitBoxes = new Godot.Collections.Array<HitBox>();
 
     public override void _Ready() {
-        _attackBox = GetNode<Area2D>("AttackBox");
-        _attackBoxShape = _attackBox.GetNode<CollisionShape2D>("CollisionShape2D");
+        foreach (Area2D attackBox in GetNode<Node2D>("AttackBoxes").GetChildren()) {
+            attackBoxes[attackBox.Name] = attackBox;
+        }
 
         attacks = new Dictionary<string, Attack>();
         foreach (Node2D child in GetChildren()) {
             if (child is Attack childAttack) {
                 attacks[childAttack.Name] = childAttack;
+                PrepareAttack(childAttack.Name);
             }
         }
     }
@@ -28,31 +28,41 @@ public partial class AttackManager : Node2D {
         preparedAttack = attacks[attackName];
     }
 
-    public void OnAttackBoxBodyEntered(Node2D body) {
-        if (body is Character character && !_bodiesHit.Contains(character)) {
-            _bodiesHit.Add(character);
+    public void OnAttackBoxAreaEntered(Area2D area) {
+        if (area is HitBox hitBox && !_attackedHitBoxes.Contains(hitBox)) {
+            _attackedHitBoxes.Add(hitBox);
 
             preparedAttack.position = GlobalPosition;
-            if (character.health.TakeDamage(preparedAttack)) {
+
+            if (hitBox.RelayAttack(preparedAttack)) {
                 if (GetParent() is Player playerAgressor) {
                     playerAgressor.camera.Shake(preparedAttack.damage);
-                } else if (character is Player playerVictim) {
+                } else if (hitBox.character is Player playerVictim) {
                     playerVictim.camera.Shake(preparedAttack.damage);
                 }
             }
         }
     }
 
-    public void StartAttack() {
-        _attackBox.Monitoring = true;
+    public void StartAttack(string attackBoxName) {
+        attackBoxes[attackBoxName].Monitoring = true;
+    }
+    public void EndAttack(string attackBoxName) {
+        attackBoxes[attackBoxName].Monitoring = false;
+        _attackedHitBoxes.Clear();
     }
     public void EndAttack() {
-        _attackBox.Monitoring = false;
-        _bodiesHit.Clear();
+        foreach (Area2D attackBox in attackBoxes.Values) {
+            attackBox.Monitoring = false;
+        }
+        _attackedHitBoxes.Clear();
     }
 
-    public void RepositionAttackBox(float direction) {
-        Vector2 position = _attackBoxShape.Position;
-        _attackBoxShape.Position = new Vector2(Mathf.Sign(direction) * Mathf.Abs(position.X), position.Y);
+    public void RepositionAttackBoxes(float direction) {
+        foreach (Area2D attackBox in attackBoxes.Values) {
+            CollisionShape2D attackBoxShape = attackBox.GetNode<CollisionShape2D>("CollisionShape2D");
+            Vector2 position = attackBoxShape.Position;
+            attackBoxShape.Position = new Vector2(Mathf.Sign(direction) * Mathf.Abs(position.X), position.Y);
+        }
     }
 }

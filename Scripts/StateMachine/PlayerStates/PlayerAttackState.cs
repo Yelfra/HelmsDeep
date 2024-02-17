@@ -1,49 +1,72 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class PlayerAttackState : State {
 
     [Export] float moveSpeed = 25f;
-    [Export] private float _chargeFillTimeSeconds = 1f;
-    [Export] private float _chargeStartTimeSeconds = 0.2f;
+    [Export] private float _heavyChargeDurationSeconds = 1f;
+    [Export] private float _chargeDurationSeconds = 0.3f;
+    [Export] AttackManager attackManager;
 
     private float _chargeTime = 0f;
 
-    private bool _attackSwitch = false; // Switching between first and second attack animation.
+    private bool _attackFacingCamera = true; // Switching between facing/not facing camera.
     //private bool _attackQueued = false; // Attack to be executed after the current attack ends.
     private bool _attackInMotion = false; // Current attack is in motion.
     private bool _chargingAttack = false; // Attack is currently being charged.
 
-    public override void _Ready() {
-    }
+    private string _currentAttackBoxName = "Middle";
+    private string _previousAttackBoxName = "Middle";
+
+    private string _animationAttackHead1Charge = "AttackHead-1-Charge";
+    private string _animationAttackHead1 = "AttackHead-1";
+    private string _animationAttackHead2Charge = "AttackHead-2-Charge";
+    private string _animationAttackHead2 = "AttackHead-2";
+
+    private string _animationAttackTorso1Charge = "AttackTorso-1-Charge";
+    private string _animationAttackTorso1 = "AttackTorso-1";
+
+    private string _animationAttackLegs1Charge = "AttackLegs-1-Charge";
+    private string _animationAttackLegs1 = "AttackLegs-1";
+    private string _animationAttackLegs2Charge = "AttackLegs-2-Charge";
+    private string _animationAttackLegs2 = "AttackLegs-2";
 
     public override void Enter() {
+        _chargingAttack = true;
+        PlayChargeAttackAnimation();
     }
     public override void Exit() {
-        character.attackManager.EndAttack();
-        _attackInMotion = false;
+        AttackEnd();
         _chargingAttack = false;
         _chargeTime = 0f;
     }
 
     public override void Update(double delta) {
+        // Aim Attack
+        if (!_attackInMotion) {
+            if (Input.IsActionPressed("aim_up")) {
+                _currentAttackBoxName = "Top";
+            } else if (Input.IsActionPressed("aim_down")) {
+                _currentAttackBoxName = "Bottom";
+            } else {
+                _currentAttackBoxName = "Middle";
+            }
+        }
+
         // Release Attack
         if (Input.IsActionJustReleased("attack") && _chargingAttack) {
-            _chargingAttack = false;
-            if (_chargeTime >= _chargeStartTimeSeconds) {
-                ChargedAttack();
-            } else {
-                QuickAttack();
-            }
+            LaunchAttack();
         }
         // Press Attack
         if (Input.IsActionPressed("attack") && !_attackInMotion) {
             _chargeTime += (float)delta;
-            if (!_chargingAttack) { // Executed only once per charge.
+            if (!_chargingAttack || _currentAttackBoxName != _previousAttackBoxName) { // Executed only once per charge.
                 _chargingAttack = true;
                 PlayChargeAttackAnimation();
+                _previousAttackBoxName = _currentAttackBoxName;
             }
-            if (_chargeTime >= _chargeFillTimeSeconds) { // Executed during charge.
+            if (_chargeTime >= _heavyChargeDurationSeconds) { // Executed during heavy charge.
                 //((Player)character).camera.Shake(0.05f);
             }
         }
@@ -70,36 +93,45 @@ public partial class PlayerAttackState : State {
         }
     }
 
+    private void QuickAttack() {
+        GD.Print("Quick Attack!");
+        attackManager.PrepareAttack("Quick");
+    }
     private void ChargedAttack() {
-        if (_chargeTime >= _chargeFillTimeSeconds) {
-            //GD.Print("Heavy Charged Attack!");
-            character.attackManager.PrepareAttack("HeavyCharged");
+        GD.Print("Charged Attack!");
+        attackManager.PrepareAttack("Charged");
+    }
+    private void HeavyChargedAttack() {
+        GD.Print("Heavy Charged Attack!");
+        attackManager.PrepareAttack("HeavyCharged");
+    }
+    private void LaunchAttack() {
+        if (_chargeTime >= _heavyChargeDurationSeconds) {
+            HeavyChargedAttack();
+        } else if (_chargeTime >= _chargeDurationSeconds) {
+            ChargedAttack();
         } else {
-            //GD.Print("Charged Attack!");
-            character.attackManager.PrepareAttack("Charged");
+            QuickAttack();
         }
         _chargeTime = 0f;
-        DefaultAttack();
-    }
-    private void QuickAttack() {
-        //GD.Print("Quick Attack!");
-        character.attackManager.PrepareAttack("Quick");
-        DefaultAttack();
-    }
-    private void DefaultAttack() {
+
         PlayAttackAnimation();
 
-        character.motionManager.AttackDash(character.attackManager.preparedAttack);
+        character.motionManager.AttackDash(attackManager.preparedAttack);
 
-        _attackSwitch = !_attackSwitch;
+        _attackFacingCamera = !_attackFacingCamera;
         _attackInMotion = true;
+        _chargingAttack = false;
     }
 
     public void AttackStart() {
-        character.attackManager.StartAttack();
+        attackManager.StartAttack(_currentAttackBoxName);
     }
     public void AttackEnd() {
-        character.attackManager.EndAttack();
+        if (!_attackInMotion) {
+            return;
+        }
+        attackManager.EndAttack(_previousAttackBoxName);
         _attackInMotion = false;
     }
 
@@ -108,17 +140,67 @@ public partial class PlayerAttackState : State {
     }
 
     private void PlayAttackAnimation() {
-        if (_attackSwitch) {
-            character.animationPlayer.Play("Attack-1-Swing");
-        } else {
-            character.animationPlayer.Play("Attack-2-Swing");
+        string attackAnimation = "";
+
+        switch (_currentAttackBoxName) {
+            case "Top": {
+                if (_attackFacingCamera) {
+                    attackAnimation = _animationAttackHead1;
+                } else {
+                    attackAnimation = _animationAttackHead2;
+                }
+                break;
+            }
+            case "Bottom": {
+                if (_attackFacingCamera) {
+                    attackAnimation = _animationAttackLegs1;
+                } else {
+                    attackAnimation = _animationAttackLegs2;
+                }
+                break;
+            }
+            default: {
+                //if (_attackFacingCamera) {
+                attackAnimation = _animationAttackTorso1;
+                //} else {
+                //attackAnimation = "Attack-2-Swing";
+                //}
+                break;
+            }
         }
+
+        character.animationPlayer.Play(attackAnimation);
     }
     private void PlayChargeAttackAnimation() {
-        if (_attackSwitch) {
-            character.animationPlayer.Play("Attack-1-Hold");
-        } else {
-            character.animationPlayer.Play("Attack-2-Hold");
+        string attackAnimation = "";
+
+        switch (_currentAttackBoxName) {
+            case "Top": {
+                if (_attackFacingCamera) {
+                    attackAnimation = _animationAttackHead1Charge;
+                } else {
+                    attackAnimation = _animationAttackHead2Charge;
+                }
+                break;
+            }
+            case "Bottom": {
+                if (_attackFacingCamera) {
+                    attackAnimation = _animationAttackLegs1Charge;
+                } else {
+                    attackAnimation = _animationAttackLegs2Charge;
+                }
+                break;
+            }
+            default: {
+                //if (_attackFacingCamera) {
+                attackAnimation = _animationAttackTorso1Charge;
+                //} else {
+                //attackAnimation = "Attack-2-Swing";
+                //}
+                break;
+            }
         }
+
+        character.animationPlayer.Play(attackAnimation);
     }
 }

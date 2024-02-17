@@ -51,11 +51,16 @@ public partial class HealthManager : Node2D {
         // Hurt Flash
         _character.effectAnimationPlayer.Play("HurtFlash");
 
-        // Update HealthManager
-        for (int i = currentHealth - 1; i > 0 && i > currentHealth - attack.damage - 1; i--) {
+        // Sum total damage
+        int totalDamage = attack.damage + attack.bonusDamage;
+
+        // Update Health GUI
+        for (int i = currentHealth - 1; i > 0 && i > currentHealth - totalDamage - 1; i--) {
             _healthPoints[i].GetNode<AnimationPlayer>("AnimationPlayer").Play("HealthPoint-Loss");
         }
-        currentHealth -= attack.damage;
+
+        // Update Health
+        currentHealth -= totalDamage;
 
         // Death
         if (currentHealth <= 0) {

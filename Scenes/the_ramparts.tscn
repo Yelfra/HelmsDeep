@@ -8,22 +8,16 @@
 [node name="The Ramparts" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource("1_ee23h")]
+z_index = 1
 position = Vector2(84, 85)
 
 [node name="Block" parent="." instance=ExtResource("3_vjwqa")]
 position = Vector2(8, 96)
 
-[node name="Block2" parent="." instance=ExtResource("3_vjwqa")]
-position = Vector2(-12, 96)
-
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="EnemySpawner" parent="Enemies" instance=ExtResource("4_c48p5")]
 position = Vector2(8, 85)
-maxSpawnedAtSameTime = 1
-
-[node name="EnemySpawner2" parent="Enemies" instance=ExtResource("4_c48p5")]
-position = Vector2(-12, 85)
 maxSpawnedAtSameTime = 1
 
 [node name="GameManager" parent="." instance=ExtResource("4_lk26m")]

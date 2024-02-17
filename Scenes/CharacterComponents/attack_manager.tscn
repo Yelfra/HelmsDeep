@@ -1,22 +1,54 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdbrg4adpvecf"]
+[gd_scene load_steps=5 format=3 uid="uid://bdbrg4adpvecf"]
 
 [ext_resource type="Script" path="res://Scripts/CharacterComponents/AttackManager.cs" id="1_wida8"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d6yvn"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwokm"]
 resource_local_to_scene = true
-size = Vector2(32, 32)
+size = Vector2(32, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1et71"]
+resource_local_to_scene = true
+size = Vector2(32, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajpug"]
+resource_local_to_scene = true
+size = Vector2(32, 4)
 
 [node name="AttackManager" type="Node2D"]
 script = ExtResource("1_wida8")
 
-[node name="AttackBox" type="Area2D" parent="."]
+[node name="AttackBoxes" type="Node2D" parent="."]
+
+[node name="Top" type="Area2D" parent="AttackBoxes"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
-position = Vector2(16, -16)
-shape = SubResource("RectangleShape2D_d6yvn")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBoxes/Top"]
+position = Vector2(16, -23)
+shape = SubResource("RectangleShape2D_bwokm")
 
-[connection signal="body_entered" from="AttackBox" to="." method="OnAttackBoxBodyEntered"]
+[node name="Middle" type="Area2D" parent="AttackBoxes"]
+collision_layer = 0
+collision_mask = 6
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBoxes/Middle"]
+position = Vector2(16, -14)
+shape = SubResource("RectangleShape2D_1et71")
+
+[node name="Bottom" type="Area2D" parent="AttackBoxes"]
+collision_layer = 0
+collision_mask = 6
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBoxes/Bottom"]
+position = Vector2(16, -5)
+shape = SubResource("RectangleShape2D_ajpug")
+
+[connection signal="area_entered" from="AttackBoxes/Top" to="." method="OnAttackBoxAreaEntered"]
+[connection signal="area_entered" from="AttackBoxes/Middle" to="." method="OnAttackBoxAreaEntered"]
+[connection signal="area_entered" from="AttackBoxes/Bottom" to="." method="OnAttackBoxAreaEntered"]

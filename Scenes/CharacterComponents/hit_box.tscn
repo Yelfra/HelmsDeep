@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvbcpt2ig10ch"]
+
+[ext_resource type="Script" path="res://Scripts/CharacterComponents/HitBox.cs" id="1_ogw03"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygvut"]
+resource_local_to_scene = true
+size = Vector2(8, 8)
+
+[node name="HitBox" type="Area2D"]
+collision_layer = 6
+collision_mask = 0
+script = ExtResource("1_ogw03")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_ygvut")

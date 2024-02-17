@@ -8,10 +8,9 @@ public partial class GameManager : Node2D {
     public override void _Ready() {
         currentScene = GetTree().CurrentScene;
 
-        Input.MouseMode = Input.MouseModeEnum.Hidden;
+        Input.MouseMode = Input.MouseModeEnum.ConfinedHidden;
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta) {
     }
     

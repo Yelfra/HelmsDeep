@@ -7,7 +7,7 @@ public partial class Enemy : Character {
     public CpuParticles2D headParticle;
 
     public override void _Ready() {
-        InitializeBoxes();
+        InitializeBodyCollider();
         InitializeAnimation();
         headParticle = GetNode<CpuParticles2D>("HeadParticle");
     }

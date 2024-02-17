@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://yc66owc7x0yi"]
+[gd_scene load_steps=43 format=3 uid="uid://yc66owc7x0yi"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_okncq"]
 [ext_resource type="Texture2D" uid="uid://by8v6m0pc7raj" path="res://Assets/Aragorn.png" id="2_gm0xv"]
@@ -9,17 +9,62 @@
 [ext_resource type="PackedScene" uid="uid://b27piakcsvodx" path="res://Scenes/CharacterComponents/health_manager.tscn" id="6_si1cx"]
 [ext_resource type="PackedScene" uid="uid://dfro4mroyjn2g" path="res://Scenes/attack.tscn" id="7_1u57s"]
 [ext_resource type="PackedScene" uid="uid://bdbrg4adpvecf" path="res://Scenes/CharacterComponents/attack_manager.tscn" id="7_2uqhg"]
+[ext_resource type="PackedScene" uid="uid://6r6tcs3yrstr" path="res://Scenes/CharacterComponents/hit_boxes.tscn" id="7_27kog"]
 [ext_resource type="PackedScene" uid="uid://bifpqdt2juh28" path="res://Scenes/StateMachine/PlayerStates/player_move_state.tscn" id="7_kvoy7"]
 [ext_resource type="PackedScene" uid="uid://co6ec2x7dp3e4" path="res://Scenes/StateMachine/PlayerStates/player_attack_state.tscn" id="7_oxxbt"]
 [ext_resource type="PackedScene" uid="uid://cs0u4741iakf3" path="res://Scenes/StateMachine/PlayerStates/player_block_state.tscn" id="12_2vn23"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ib5dj"]
+size = Vector2(10, 28)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_svef6"]
+resource_local_to_scene = true
+shader = ExtResource("3_fvl0h")
+shader_parameter/flash_intensity = 0.0
+
+[sub_resource type="Animation" id="Animation_pkfl4"]
+resource_name = "AttackHead-1"
+length = 0.80001
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StateMachine/PlayerAttackState")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"AttackStart"
+}, {
+"args": [],
+"method": &"AttackEnd"
+}, {
+"args": [],
+"method": &"AttackAnimationEnd"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/Sprite2D:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3)]
+}
+
 [sub_resource type="Animation" id="Animation_5wiwd"]
-resource_name = "Attack-1-Hold"
+resource_name = "AttackHead-1-Charge"
 length = 0.20001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/path = NodePath("Sprite/Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -29,8 +74,8 @@ tracks/0/keys = {
 "values": [Vector2i(0, 3), Vector2i(1, 3)]
 }
 
-[sub_resource type="Animation" id="Animation_pkfl4"]
-resource_name = "Attack-1-Swing"
+[sub_resource type="Animation" id="Animation_ly8c3"]
+resource_name = "AttackHead-2"
 length = 0.80001
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -39,7 +84,7 @@ tracks/0/path = NodePath("StateMachine/PlayerAttackState")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 0.3, 0.8),
+"times": PackedFloat32Array(0, 0.2, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
@@ -55,23 +100,23 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame_coords")
+tracks/1/path = NodePath("Sprite/Sprite2D:frame_coords")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3)]
+"values": [Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4), Vector2i(5, 4)]
 }
 
 [sub_resource type="Animation" id="Animation_3vsnj"]
-resource_name = "Attack-2-Hold"
+resource_name = "AttackHead-2-Charge"
 length = 0.20001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/path = NodePath("Sprite/Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -81,8 +126,8 @@ tracks/0/keys = {
 "values": [Vector2i(0, 4), Vector2i(1, 4)]
 }
 
-[sub_resource type="Animation" id="Animation_ly8c3"]
-resource_name = "Attack-2-Swing"
+[sub_resource type="Animation" id="Animation_cbata"]
+resource_name = "AttackLegs-1"
 length = 0.80001
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -91,7 +136,7 @@ tracks/0/path = NodePath("StateMachine/PlayerAttackState")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 0.3, 0.8),
+"times": PackedFloat32Array(0, 0.2, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
@@ -107,14 +152,134 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame_coords")
+tracks/1/path = NodePath("Sprite/Sprite2D:frame_coords")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4), Vector2i(5, 4)]
+"values": [Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6), Vector2i(5, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_p607b"]
+resource_name = "AttackLegs-1-Charge"
+length = 0.20001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 6), Vector2i(1, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_fn826"]
+resource_name = "AttackLegs-2"
+length = 0.80001
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StateMachine/PlayerAttackState")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"AttackStart"
+}, {
+"args": [],
+"method": &"AttackEnd"
+}, {
+"args": [],
+"method": &"AttackAnimationEnd"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/Sprite2D:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(2, 7), Vector2i(3, 7), Vector2i(4, 7), Vector2i(5, 7)]
+}
+
+[sub_resource type="Animation" id="Animation_k0hwu"]
+resource_name = "AttackLegs-2-Charge"
+length = 0.20001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 7), Vector2i(1, 7)]
+}
+
+[sub_resource type="Animation" id="Animation_lywnn"]
+resource_name = "AttackTorso-1"
+length = 0.80001
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StateMachine/PlayerAttackState")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"AttackStart"
+}, {
+"args": [],
+"method": &"AttackEnd"
+}, {
+"args": [],
+"method": &"AttackAnimationEnd"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/Sprite2D:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(2, 5), Vector2i(3, 5), Vector2i(4, 5), Vector2i(5, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_62fsh"]
+resource_name = "AttackTorso-1-Charge"
+length = 0.20001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 5), Vector2i(1, 5)]
 }
 
 [sub_resource type="Animation" id="Animation_2i7ld"]
@@ -124,7 +289,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/path = NodePath("Sprite/Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -140,7 +305,7 @@ length = 0.40001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/quantity")
+tracks/0/path = NodePath("Sprite/Sprite2D:material:shader_parameter/quantity")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -152,7 +317,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame_coords")
+tracks/1/path = NodePath("Sprite/Sprite2D:frame_coords")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -169,7 +334,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/path = NodePath("Sprite/Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -185,7 +350,7 @@ length = 1.00001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/path = NodePath("Sprite/Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -200,7 +365,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/quantity")
+tracks/0/path = NodePath("Sprite/Sprite2D:material:shader_parameter/quantity")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -212,7 +377,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame_coords")
+tracks/1/path = NodePath("Sprite/Sprite2D:frame_coords")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -229,7 +394,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/path = NodePath("Sprite/Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -246,7 +411,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/path = NodePath("Sprite/Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -258,10 +423,16 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a1h70"]
 _data = {
-"Attack-1-Hold": SubResource("Animation_5wiwd"),
-"Attack-1-Swing": SubResource("Animation_pkfl4"),
-"Attack-2-Hold": SubResource("Animation_3vsnj"),
-"Attack-2-Swing": SubResource("Animation_ly8c3"),
+"AttackHead-1": SubResource("Animation_pkfl4"),
+"AttackHead-1-Charge": SubResource("Animation_5wiwd"),
+"AttackHead-2": SubResource("Animation_ly8c3"),
+"AttackHead-2-Charge": SubResource("Animation_3vsnj"),
+"AttackLegs-1": SubResource("Animation_cbata"),
+"AttackLegs-1-Charge": SubResource("Animation_p607b"),
+"AttackLegs-2": SubResource("Animation_fn826"),
+"AttackLegs-2-Charge": SubResource("Animation_k0hwu"),
+"AttackTorso-1": SubResource("Animation_lywnn"),
+"AttackTorso-1-Charge": SubResource("Animation_62fsh"),
 "Block": SubResource("Animation_2i7ld"),
 "Hurt": SubResource("Animation_ih7dh"),
 "Idle": SubResource("Animation_fkx8k"),
@@ -271,18 +442,13 @@ _data = {
 "Walk": SubResource("Animation_tun4m")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_svef6"]
-resource_local_to_scene = true
-shader = ExtResource("3_fvl0h")
-shader_parameter/flash_intensity = 0.0
-
 [sub_resource type="Animation" id="Animation_3wr2e"]
 resource_name = "HurtFlash"
 length = 0.40001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_intensity")
+tracks/0/path = NodePath("Sprite/Sprite2D:material:shader_parameter/flash_intensity")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -297,7 +463,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_intensity")
+tracks/0/path = NodePath("Sprite/Sprite2D:material:shader_parameter/flash_intensity")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -313,19 +479,52 @@ _data = {
 "RESET": SubResource("Animation_k4aaa")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ib5dj"]
-size = Vector2(12, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3iefh"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_147sh"]
 resource_local_to_scene = true
-size = Vector2(45, 32)
+size = Vector2(8, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kecn"]
+resource_local_to_scene = true
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jh58e"]
+resource_local_to_scene = true
+size = Vector2(8, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1qa0u"]
+resource_local_to_scene = true
+size = Vector2(40, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8ww2"]
+resource_local_to_scene = true
+size = Vector2(40, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mmu7l"]
+resource_local_to_scene = true
+size = Vector2(40, 4)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health", "attackManager", "motionManager")]
-collision_layer = 2
+collision_layer = 0
 script = ExtResource("1_okncq")
 health = NodePath("HealthManager")
 attackManager = NodePath("AttackManager")
 motionManager = NodePath("MotionManager")
+
+[node name="BodyCollider" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1, -14)
+shape = SubResource("RectangleShape2D_ib5dj")
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_svef6")
+position = Vector2(0, -24)
+texture = ExtResource("2_gm0xv")
+hframes = 6
+vframes = 12
+frame = 19
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -32)
@@ -337,37 +536,65 @@ libraries = {
 "": SubResource("AnimationLibrary_a1h70")
 }
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-material = SubResource("ShaderMaterial_svef6")
-position = Vector2(0, -24)
-texture = ExtResource("2_gm0xv")
-hframes = 6
-vframes = 8
-frame = 19
-
 [node name="EffectAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_kt4xo")
 }
-
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -16)
-shape = SubResource("RectangleShape2D_ib5dj")
 
 [node name="MotionManager" parent="." instance=ExtResource("5_hy0ot")]
 
 [node name="HealthManager" parent="." instance=ExtResource("6_si1cx")]
 hurtDurationSeconds = 0.5
 
+[node name="HitBox" parent="HealthManager" instance=ExtResource("7_27kog")]
+metadata/_edit_group_ = true
+
+[node name="Head" parent="HealthManager/HitBox" index="0" node_paths=PackedStringArray("character")]
+collision_layer = 2
+character = NodePath("../../..")
+bonusDamage = 1
+
+[node name="CollisionShape2D" parent="HealthManager/HitBox/Head" index="0"]
+position = Vector2(0, -23)
+shape = SubResource("RectangleShape2D_147sh")
+
+[node name="Body" parent="HealthManager/HitBox" index="1" node_paths=PackedStringArray("character")]
+collision_layer = 2
+character = NodePath("../../..")
+
+[node name="CollisionShape2D" parent="HealthManager/HitBox/Body" index="0"]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_3kecn")
+
+[node name="Legs" parent="HealthManager/HitBox" index="2" node_paths=PackedStringArray("character")]
+collision_layer = 2
+character = NodePath("../../..")
+
+[node name="CollisionShape2D" parent="HealthManager/HitBox/Legs" index="0"]
+shape = SubResource("RectangleShape2D_jh58e")
+
 [node name="AttackManager" parent="." instance=ExtResource("7_2uqhg")]
 
-[node name="AttackBox" parent="AttackManager" index="0"]
+[node name="Top" parent="AttackManager/AttackBoxes" index="0"]
 collision_mask = 4
 
-[node name="CollisionShape2D" parent="AttackManager/AttackBox" index="0"]
-position = Vector2(17, -16)
-shape = SubResource("RectangleShape2D_3iefh")
+[node name="CollisionShape2D" parent="AttackManager/AttackBoxes/Top" index="0"]
+position = Vector2(20, -23)
+shape = SubResource("RectangleShape2D_1qa0u")
+
+[node name="Middle" parent="AttackManager/AttackBoxes" index="1"]
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="AttackManager/AttackBoxes/Middle" index="0"]
+position = Vector2(20, -14)
+shape = SubResource("RectangleShape2D_p8ww2")
+
+[node name="Bottom" parent="AttackManager/AttackBoxes" index="2"]
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="AttackManager/AttackBoxes/Bottom" index="0"]
+position = Vector2(20, -5)
+shape = SubResource("RectangleShape2D_mmu7l")
 
 [node name="Quick" parent="AttackManager" instance=ExtResource("7_1u57s")]
 knockbackForce = 50.0
@@ -377,7 +604,7 @@ damage = 2
 dashForce = 100.0
 
 [node name="HeavyCharged" parent="AttackManager" instance=ExtResource("7_1u57s")]
-damage = 5
+damage = 3
 knockbackForce = 150.0
 dashForce = 200.0
 
@@ -386,10 +613,15 @@ character = NodePath("..")
 initialState = NodePath("PlayerMoveState")
 metadata/_edit_group_ = true
 
-[node name="PlayerAttackState" parent="StateMachine" instance=ExtResource("7_oxxbt")]
+[node name="PlayerAttackState" parent="StateMachine" node_paths=PackedStringArray("attackManager") instance=ExtResource("7_oxxbt")]
+attackManager = NodePath("../../AttackManager")
 
 [node name="PlayerMoveState" parent="StateMachine" instance=ExtResource("7_kvoy7")]
 
 [node name="PlayerBlockState" parent="StateMachine" instance=ExtResource("12_2vn23")]
 
+[editable path="HealthManager/HitBox"]
+[editable path="HealthManager/HitBox/Head"]
+[editable path="HealthManager/HitBox/Body"]
+[editable path="HealthManager/HitBox/Legs"]
 [editable path="AttackManager"]

@@ -10,7 +10,7 @@ public partial class Attack : Node2D {
     [Export] public float dashForce = 50f;
     [Export] public float dashDurationSeconds = 0.1f;
 
+    public int bonusDamage = 0;
     public Vector2 position;
-
 }
 

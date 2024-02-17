@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://6r6tcs3yrstr"]
+
+[ext_resource type="PackedScene" uid="uid://dvbcpt2ig10ch" path="res://Scenes/CharacterComponents/hit_box.tscn" id="1_h3i7u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fdl4a"]
+resource_local_to_scene = true
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_521dm"]
+resource_local_to_scene = true
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0k8am"]
+resource_local_to_scene = true
+size = Vector2(10, 10)
+
+[node name="HitBoxes" type="Node2D"]
+
+[node name="Head" parent="." instance=ExtResource("1_h3i7u")]
+
+[node name="CollisionShape2D" parent="Head" index="0"]
+position = Vector2(0, -27)
+shape = SubResource("RectangleShape2D_fdl4a")
+
+[node name="Body" parent="." instance=ExtResource("1_h3i7u")]
+
+[node name="CollisionShape2D" parent="Body" index="0"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_521dm")
+
+[node name="Legs" parent="." instance=ExtResource("1_h3i7u")]
+
+[node name="CollisionShape2D" parent="Legs" index="0"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_0k8am")
+
+[editable path="Head"]
+[editable path="Body"]
+[editable path="Legs"]

@@ -3,6 +3,8 @@ using System;
 
 public partial class EnemyAttackState : State {
 
+    private bool _attackInMotion = false;
+
     public override void Enter() {
         character.attackManager.PrepareAttack("Cleave");
         character.animationPlayer.Play("Attack");
@@ -10,7 +12,7 @@ public partial class EnemyAttackState : State {
         character.Velocity = Vector2.Zero;
     }
     public override void Exit() {
-        character.attackManager.EndAttack();
+        AttackEnd();
     }
 
     public override void Update(double delta) {
@@ -21,11 +23,16 @@ public partial class EnemyAttackState : State {
     }
 
     public void AttackStart() {
-        character.attackManager.StartAttack();
+        _attackInMotion = true;
+        character.attackManager.StartAttack("Top");
         character.motionManager.AttackDash(character.attackManager.preparedAttack);
     }
     public void AttackEnd() {
-        character.attackManager.EndAttack();
+        if (!_attackInMotion) {
+            return;
+        }
+        character.attackManager.EndAttack("Top");
+        _attackInMotion = false;
     }
 
     public void AttackAnimationEnd() {

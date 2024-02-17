@@ -8,7 +8,7 @@ public partial class EnemyDeathState : State {
         character.animationPlayer.Play("Death");
         ((Enemy)character).headParticle.Emitting = true;
 
-        character.hitbox.SetDeferred("disabled", true);
+        character.bodyCollider.SetDeferred("disabled", true);
     }
     public override void Exit() {
         character.QueueFree();

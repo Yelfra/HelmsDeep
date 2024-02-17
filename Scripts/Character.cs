@@ -14,16 +14,13 @@ public abstract partial class Character : CharacterBody2D {
     public float horizontalDirection = 0f;
     public int facingDirection = 1;
 
-    public CollisionShape2D hitbox;
+    public CollisionShape2D bodyCollider;
 
     public AnimationPlayer animationPlayer;
     public AnimationPlayer effectAnimationPlayer;
 
-    public override void _PhysicsProcess(double delta) {
-    }
-
-    public void InitializeBoxes() {
-        hitbox = GetNode<CollisionShape2D>("Hitbox");
+    public void InitializeBodyCollider() {
+        bodyCollider = GetNode<CollisionShape2D>("BodyCollider");
     }
     public void InitializeAnimation() {
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -33,15 +30,19 @@ public abstract partial class Character : CharacterBody2D {
     public void FaceDirection(float direction) {
         if (direction < 0) {
             facingDirection = -1;
-            GetNode<Sprite2D>("Sprite2D").FlipH = true;
+            foreach (Sprite2D sprite in GetNode<Node2D>("Sprite").GetChildren()) {
+                sprite.FlipH = true;
+            }
         } else if (direction > 0) {
             facingDirection = 1;
-            GetNode<Sprite2D>("Sprite2D").FlipH = false;
+            foreach (Sprite2D sprite in GetNode<Node2D>("Sprite").GetChildren()) {
+                sprite.FlipH = false;
+            }
         }
 
         // Reposition AttackBox Left/Right
         if (attackManager != null) {
-            attackManager.RepositionAttackBox(facingDirection);
+            attackManager.RepositionAttackBoxes(facingDirection);
         }
     }
 

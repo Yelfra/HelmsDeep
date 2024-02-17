@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://ljsbfmo33wvu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwokm"]
+resource_local_to_scene = true
+size = Vector2(32, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1et71"]
+resource_local_to_scene = true
+size = Vector2(32, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajpug"]
+resource_local_to_scene = true
+size = Vector2(32, 6)
+
+[node name="AttackBoxTripartite" type="Node2D"]
+
+[node name="Top" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
+position = Vector2(16, -23)
+shape = SubResource("RectangleShape2D_bwokm")
+
+[node name="Middle" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Middle"]
+position = Vector2(16, -14)
+shape = SubResource("RectangleShape2D_1et71")
+
+[node name="Bottom" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
+position = Vector2(16, -5)
+shape = SubResource("RectangleShape2D_ajpug")
