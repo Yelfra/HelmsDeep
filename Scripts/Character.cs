@@ -7,6 +7,9 @@ public abstract partial class Character : CharacterBody2D {
     [Export] public AttackManager attackManager;
     [Export] public MotionManager motionManager;
 
+    // Player only
+    [Export] public AttackHighlighter attackHighlighter;
+
     [Signal] public delegate void CallTransitionedEventHandler(string stateName);
 
     public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -40,9 +43,11 @@ public abstract partial class Character : CharacterBody2D {
             }
         }
 
-        // Reposition AttackBox Left/Right
         if (attackManager != null) {
             attackManager.RepositionAttackBoxes(facingDirection);
+        }
+        if (attackHighlighter != null) {
+            attackHighlighter.RepositionRays(facingDirection);
         }
     }
 

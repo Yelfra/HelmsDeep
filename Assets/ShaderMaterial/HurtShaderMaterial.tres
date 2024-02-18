@@ -1,8 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bvtfjvvai82o5"]
-
-[ext_resource type="Shader" path="res://Shaders/hurt_flash.gdshader" id="1_jukw5"]
-
-[resource]
-resource_local_to_scene = true
-shader = ExtResource("1_jukw5")
-shader_parameter/flash_intensity = 0.0

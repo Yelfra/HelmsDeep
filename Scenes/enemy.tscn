@@ -1,19 +1,22 @@
-[gd_scene load_steps=34 format=3 uid="uid://dudh0ki8j4bsx"]
+[gd_scene load_steps=38 format=3 uid="uid://dudh0ki8j4bsx"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.cs" id="1_q0kdg"]
+[ext_resource type="Shader" path="res://Shaders/hurt_flash.gdshader" id="2_k22yu"]
 [ext_resource type="Texture2D" uid="uid://cm74qco5e5rhl" path="res://Assets/UrukHai.png" id="2_m6dwn"]
-[ext_resource type="Material" uid="uid://bvtfjvvai82o5" path="res://Assets/ShaderMaterial/HurtShaderMaterial.tres" id="2_xmth3"]
 [ext_resource type="PackedScene" uid="uid://b5p6dtecwmmqj" path="res://Scenes/StateMachine/state_machine.tscn" id="3_nbnit"]
 [ext_resource type="PackedScene" uid="uid://dsdapvb5mxeug" path="res://Scenes/StateMachine/EnemyStates/enemy_pursue_state.tscn" id="4_0fxrs"]
 [ext_resource type="PackedScene" uid="uid://6r6tcs3yrstr" path="res://Scenes/CharacterComponents/hit_boxes.tscn" id="4_0mh02"]
 [ext_resource type="PackedScene" uid="uid://b27piakcsvodx" path="res://Scenes/CharacterComponents/health_manager.tscn" id="4_8jpea"]
+[ext_resource type="Material" uid="uid://cbbg6vtaplul6" path="res://Assets/ShaderMaterial/HeadShaderMaterial.tres" id="4_l1hfv"]
 [ext_resource type="PackedScene" uid="uid://cfsklhhpoc8qr" path="res://Scenes/CharacterComponents/motion_manager.tscn" id="4_x20dr"]
 [ext_resource type="Texture2D" uid="uid://dyu736l1w11ci" path="res://Assets/UrukHai_Heads.png" id="5_4d44h"]
 [ext_resource type="PackedScene" uid="uid://bexn8wt8aq2db" path="res://Scenes/StateMachine/EnemyStates/enemy_attack_state.tscn" id="5_b6vxn"]
+[ext_resource type="Material" uid="uid://cqwj0qqo105f5" path="res://Assets/ShaderMaterial/BodyShaderMaterial.tres" id="6_1yfba"]
 [ext_resource type="PackedScene" uid="uid://bdbrg4adpvecf" path="res://Scenes/CharacterComponents/attack_manager.tscn" id="6_8gakk"]
 [ext_resource type="PackedScene" uid="uid://dfro4mroyjn2g" path="res://Scenes/attack.tscn" id="6_eaq6t"]
 [ext_resource type="Texture2D" uid="uid://dqapkkuxafxeb" path="res://Assets/UrukHai_Parts.png" id="6_k2v80"]
 [ext_resource type="PackedScene" uid="uid://d2bcorblx24e4" path="res://Scenes/StateMachine/hurt_state.tscn" id="7_pfd6a"]
+[ext_resource type="Material" uid="uid://h1nommre0epw" path="res://Assets/ShaderMaterial/LegsShaderMaterial.tres" id="8_5cy8o"]
 [ext_resource type="PackedScene" uid="uid://bnlr5qt6tni5e" path="res://Scenes/StateMachine/EnemyStates/enemy_death_state.tscn" id="9_i6yqm"]
 [ext_resource type="Texture2D" uid="uid://c8iwf7tkbfpyr" path="res://Assets/UrukHai_Head.png" id="10_mkacl"]
 
@@ -58,7 +61,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite/HeadSprite:frame_coords")
+tracks/2/path = NodePath("Sprite/Head:frame_coords")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -70,74 +73,74 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite/BodySprite:frame_coords")
+tracks/3/path = NodePath("Sprite/Weapon:frame_coords")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 12), Vector2i(1, 12), Vector2i(2, 12), Vector2i(3, 12), Vector2i(4, 12), Vector2i(5, 12)]
+"values": [Vector2i(0, 14), Vector2i(1, 14), Vector2i(2, 14), Vector2i(3, 14), Vector2i(4, 14), Vector2i(5, 14)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite/LeftArmSprite:frame_coords")
+tracks/4/path = NodePath("Sprite/Legs:frame_coords")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 10), Vector2i(1, 10), Vector2i(2, 10), Vector2i(3, 10), Vector2i(4, 10), Vector2i(5, 10)]
+"values": [Vector2i(0, 11), Vector2i(1, 11), Vector2i(2, 11), Vector2i(3, 11), Vector2i(4, 11), Vector2i(5, 11)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite/RightArmSprite:frame_coords")
+tracks/5/path = NodePath("Sprite/Head:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2i(0, 13), Vector2i(1, 13), Vector2i(2, 13), Vector2i(3, 13), Vector2i(4, 13), Vector2i(5, 13)]
+"values": [true]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Sprite/WeaponSprite:frame_coords")
+tracks/6/path = NodePath("Sprite/Body:frame_coords")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 14), Vector2i(1, 14), Vector2i(2, 14), Vector2i(3, 14), Vector2i(4, 14), Vector2i(5, 14)]
+"values": [Vector2i(0, 12), Vector2i(1, 12), Vector2i(1, 12), Vector2i(2, 12), Vector2i(3, 12), Vector2i(4, 12)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Sprite/LegsSprite:frame_coords")
+tracks/7/path = NodePath("Sprite/LeftArm:frame_coords")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 11), Vector2i(1, 11), Vector2i(2, 11), Vector2i(3, 11), Vector2i(4, 11), Vector2i(5, 11)]
+"values": [Vector2i(0, 10), Vector2i(1, 10), Vector2i(2, 10), Vector2i(3, 10), Vector2i(4, 10), Vector2i(5, 10)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Sprite/HeadSprite:visible")
+tracks/8/path = NodePath("Sprite/RightArm:frame_coords")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true]
+"values": [Vector2i(0, 13), Vector2i(1, 13), Vector2i(2, 13), Vector2i(3, 13), Vector2i(4, 13), Vector2i(5, 13)]
 }
 
 [sub_resource type="Animation" id="Animation_uvmaq"]
@@ -172,74 +175,74 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite/BodySprite:frame_coords")
+tracks/2/path = NodePath("Sprite/Weapon:frame_coords")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 17), Vector2i(1, 17), Vector2i(2, 17), Vector2i(3, 17), Vector2i(4, 17), Vector2i(5, 17), Vector2i(6, 17), Vector2i(7, 17)]
+"values": [Vector2i(0, 19), Vector2i(1, 19), Vector2i(2, 19), Vector2i(3, 19), Vector2i(4, 19), Vector2i(5, 19), Vector2i(6, 19), Vector2i(7, 19)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite/LeftArmSprite:frame_coords")
+tracks/3/path = NodePath("Sprite/Legs:frame_coords")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 15), Vector2i(1, 15), Vector2i(2, 15), Vector2i(3, 15), Vector2i(4, 15), Vector2i(5, 15), Vector2i(6, 15), Vector2i(7, 15)]
+"values": [Vector2i(0, 16), Vector2i(1, 16), Vector2i(2, 16), Vector2i(3, 16), Vector2i(4, 16), Vector2i(5, 16), Vector2i(6, 16), Vector2i(7, 16)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite/RightArmSprite:frame_coords")
+tracks/4/path = NodePath("Sprite/Head:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2i(0, 18), Vector2i(1, 18), Vector2i(2, 18), Vector2i(3, 18), Vector2i(4, 18), Vector2i(5, 18), Vector2i(6, 18), Vector2i(7, 18)]
+"values": [false]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite/WeaponSprite:frame_coords")
+tracks/5/path = NodePath("Sprite/Body:frame_coords")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 19), Vector2i(1, 19), Vector2i(2, 19), Vector2i(3, 19), Vector2i(4, 19), Vector2i(5, 19), Vector2i(6, 19), Vector2i(7, 19)]
+"values": [Vector2i(0, 17), Vector2i(1, 17), Vector2i(2, 17), Vector2i(3, 17), Vector2i(4, 17), Vector2i(5, 17), Vector2i(6, 17), Vector2i(7, 17)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Sprite/LegsSprite:frame_coords")
+tracks/6/path = NodePath("Sprite/LeftArm:frame_coords")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 16), Vector2i(1, 16), Vector2i(2, 16), Vector2i(3, 16), Vector2i(4, 16), Vector2i(5, 16), Vector2i(6, 16), Vector2i(7, 16)]
+"values": [Vector2i(0, 15), Vector2i(1, 15), Vector2i(2, 15), Vector2i(3, 15), Vector2i(4, 15), Vector2i(5, 15), Vector2i(6, 15), Vector2i(7, 15)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Sprite/HeadSprite:visible")
+tracks/7/path = NodePath("Sprite/RightArm:frame_coords")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false]
+"values": [Vector2i(0, 18), Vector2i(1, 18), Vector2i(2, 18), Vector2i(3, 18), Vector2i(4, 18), Vector2i(5, 18), Vector2i(6, 18), Vector2i(7, 18)]
 }
 
 [sub_resource type="Animation" id="Animation_tkexa"]
@@ -260,7 +263,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite/HeadSprite:frame_coords")
+tracks/1/path = NodePath("Sprite/Head:frame_coords")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -272,7 +275,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite/BodySprite:frame_coords")
+tracks/2/path = NodePath("Sprite/Body:frame_coords")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -284,7 +287,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite/LeftArmSprite:frame_coords")
+tracks/3/path = NodePath("Sprite/Body:frame_coords")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -296,7 +299,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite/RightArmSprite:frame_coords")
+tracks/4/path = NodePath("Sprite/Body:frame_coords")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -308,7 +311,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite/WeaponSprite:frame_coords")
+tracks/5/path = NodePath("Sprite/Weapon:frame_coords")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -320,7 +323,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Sprite/LegsSprite:frame_coords")
+tracks/6/path = NodePath("Sprite/Legs:frame_coords")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -332,7 +335,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Sprite/HeadSprite:visible")
+tracks/7/path = NodePath("Sprite/Head:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -358,6 +361,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 0), Vector2i(1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/Head:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_86ju1"]
 length = 0.001
@@ -376,7 +391,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite/HeadSprite:frame_coords")
+tracks/1/path = NodePath("Sprite/Head:frame_coords")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -388,7 +403,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite/BodySprite:frame_coords")
+tracks/2/path = NodePath("Sprite/Body:frame_coords")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -400,7 +415,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite/LeftArmSprite:frame_coords")
+tracks/3/path = NodePath("Sprite/Body:frame_coords")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -412,7 +427,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite/RightArmSprite:frame_coords")
+tracks/4/path = NodePath("Sprite/Body:frame_coords")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -424,7 +439,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite/WeaponSprite:frame_coords")
+tracks/5/path = NodePath("Sprite/Weapon:frame_coords")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -436,7 +451,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Sprite/LegsSprite:frame_coords")
+tracks/6/path = NodePath("Sprite/Legs:frame_coords")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -448,14 +463,38 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Sprite/HeadSprite:visible")
+tracks/7/path = NodePath("Sprite/Head:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sprite/LeftArm:frame_coords")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 5)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Sprite/RightArm:frame_coords")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 8)]
 }
 
 [sub_resource type="Animation" id="Animation_v2jdc"]
@@ -477,7 +516,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite/HeadSprite:frame_coords")
+tracks/1/path = NodePath("Sprite/Head:frame_coords")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -489,74 +528,74 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite/BodySprite:frame_coords")
+tracks/2/path = NodePath("Sprite/Weapon:frame_coords")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(3, 7), Vector2i(4, 7), Vector2i(5, 7)]
+"values": [Vector2i(0, 9), Vector2i(1, 9), Vector2i(2, 9), Vector2i(3, 9), Vector2i(4, 9), Vector2i(5, 9)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite/LeftArmSprite:frame_coords")
+tracks/3/path = NodePath("Sprite/Legs:frame_coords")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 5), Vector2i(1, 5), Vector2i(2, 5), Vector2i(3, 5), Vector2i(4, 5), Vector2i(5, 5)]
+"values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6), Vector2i(5, 6)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite/RightArmSprite:frame_coords")
+tracks/4/path = NodePath("Sprite/Head:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2i(0, 8), Vector2i(1, 8), Vector2i(2, 8), Vector2i(3, 8), Vector2i(4, 8), Vector2i(5, 8)]
+"values": [true]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite/WeaponSprite:frame_coords")
+tracks/5/path = NodePath("Sprite/Body:frame_coords")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 9), Vector2i(1, 9), Vector2i(2, 9), Vector2i(3, 9), Vector2i(4, 9), Vector2i(5, 9)]
+"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(3, 7), Vector2i(4, 7), Vector2i(5, 7)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Sprite/LegsSprite:frame_coords")
+tracks/6/path = NodePath("Sprite/LeftArm:frame_coords")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6), Vector2i(5, 6)]
+"values": [Vector2i(0, 5), Vector2i(1, 5), Vector2i(2, 5), Vector2i(3, 5), Vector2i(4, 5), Vector2i(5, 5)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Sprite/HeadSprite:visible")
+tracks/7/path = NodePath("Sprite/RightArm:frame_coords")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true]
+"values": [Vector2i(0, 8), Vector2i(1, 8), Vector2i(2, 8), Vector2i(3, 8), Vector2i(4, 8), Vector2i(5, 8)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u47h4"]
@@ -584,6 +623,42 @@ tracks/0/keys = {
 "update": 0,
 "values": [1.0, 0.0, 1.0, 0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/Head:material:shader_parameter/flash_intensity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/Body:material:shader_parameter/flash_intensity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/Legs:material:shader_parameter/flash_intensity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0, 0.0]
+}
 
 [sub_resource type="Animation" id="Animation_ns2gn"]
 length = 0.001
@@ -599,12 +674,53 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/Head:material:shader_parameter/flash_intensity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/Body:material:shader_parameter/flash_intensity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/Legs:material:shader_parameter/flash_intensity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8iprk"]
 _data = {
 "HurtFlash": SubResource("Animation_t6lst"),
 "RESET": SubResource("Animation_ns2gn")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aho1d"]
+resource_local_to_scene = true
+shader = ExtResource("2_k22yu")
+shader_parameter/flash_intensity = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yilgh"]
 resource_local_to_scene = true
@@ -658,54 +774,53 @@ metadata/_edit_group_ = true
 [node name="Sprite2D" type="Sprite2D" parent="Sprite"]
 visible = false
 texture_filter = 1
-material = ExtResource("2_xmth3")
+material = SubResource("ShaderMaterial_aho1d")
 position = Vector2(0, -24)
 texture = ExtResource("2_m6dwn")
 hframes = 8
 vframes = 4
 frame = 16
 
-[node name="HeadSprite" type="Sprite2D" parent="Sprite"]
-visible = false
+[node name="Head" type="Sprite2D" parent="Sprite"]
 texture_filter = 1
-material = ExtResource("2_xmth3")
+material = ExtResource("4_l1hfv")
 position = Vector2(0, -24)
 texture = ExtResource("5_4d44h")
 hframes = 6
 vframes = 18
 frame = 72
 
-[node name="BodySprite" type="Sprite2D" parent="Sprite"]
+[node name="Body" type="Sprite2D" parent="Sprite"]
 z_index = -2
 texture_filter = 1
-material = ExtResource("2_xmth3")
-position = Vector2(0, -24)
-texture = ExtResource("6_k2v80")
-hframes = 8
-vframes = 20
-frame = 96
-
-[node name="LeftArmSprite" type="Sprite2D" parent="Sprite"]
-z_index = -4
-texture_filter = 1
-material = ExtResource("2_xmth3")
-position = Vector2(0, -24)
-texture = ExtResource("6_k2v80")
-hframes = 8
-vframes = 20
-frame = 80
-
-[node name="RightArmSprite" type="Sprite2D" parent="Sprite"]
-z_index = -1
-texture_filter = 1
-material = ExtResource("2_xmth3")
+material = ExtResource("6_1yfba")
 position = Vector2(0, -24)
 texture = ExtResource("6_k2v80")
 hframes = 8
 vframes = 20
 frame = 104
 
-[node name="WeaponSprite" type="Sprite2D" parent="Sprite"]
+[node name="LeftArm" type="Sprite2D" parent="Sprite"]
+z_index = -4
+texture_filter = 1
+material = ExtResource("6_1yfba")
+position = Vector2(0, -24)
+texture = ExtResource("6_k2v80")
+hframes = 8
+vframes = 20
+frame = 40
+
+[node name="RightArm" type="Sprite2D" parent="Sprite"]
+z_index = -1
+texture_filter = 1
+material = ExtResource("6_1yfba")
+position = Vector2(0, -24)
+texture = ExtResource("6_k2v80")
+hframes = 8
+vframes = 20
+frame = 64
+
+[node name="Weapon" type="Sprite2D" parent="Sprite"]
 texture_filter = 1
 position = Vector2(0, -24)
 texture = ExtResource("6_k2v80")
@@ -713,10 +828,10 @@ hframes = 8
 vframes = 20
 frame = 112
 
-[node name="LegsSprite" type="Sprite2D" parent="Sprite"]
+[node name="Legs" type="Sprite2D" parent="Sprite"]
 z_index = -3
 texture_filter = 1
-material = ExtResource("2_xmth3")
+material = ExtResource("8_5cy8o")
 position = Vector2(0, -24)
 texture = ExtResource("6_k2v80")
 hframes = 8
@@ -731,26 +846,29 @@ hurtState = NodePath("../StateMachine/HurtState")
 [node name="HitBox" parent="HealthManager" instance=ExtResource("4_0mh02")]
 metadata/_edit_group_ = true
 
-[node name="Head" parent="HealthManager/HitBox" index="0" node_paths=PackedStringArray("character")]
+[node name="Head" parent="HealthManager/HitBox" index="0" node_paths=PackedStringArray("character", "bodyPart")]
 collision_layer = 4
 character = NodePath("../../..")
+bodyPart = NodePath("../../../Sprite/Head")
 bonusDamage = 1
 
 [node name="CollisionShape2D" parent="HealthManager/HitBox/Head" index="0"]
 position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_yilgh")
 
-[node name="Body" parent="HealthManager/HitBox" index="1" node_paths=PackedStringArray("character")]
+[node name="Body" parent="HealthManager/HitBox" index="1" node_paths=PackedStringArray("character", "bodyPart")]
 collision_layer = 4
 character = NodePath("../../..")
+bodyPart = NodePath("../../../Sprite/Body")
 
 [node name="CollisionShape2D" parent="HealthManager/HitBox/Body" index="0"]
 position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_de8oh")
 
-[node name="Legs" parent="HealthManager/HitBox" index="2" node_paths=PackedStringArray("character")]
+[node name="Legs" parent="HealthManager/HitBox" index="2" node_paths=PackedStringArray("character", "bodyPart")]
 collision_layer = 4
 character = NodePath("../../..")
+bodyPart = NodePath("../../../Sprite/Legs")
 
 [node name="CollisionShape2D" parent="HealthManager/HitBox/Legs" index="0"]
 shape = SubResource("RectangleShape2D_ua7jn")

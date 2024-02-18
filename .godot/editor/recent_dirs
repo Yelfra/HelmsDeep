@@ -1,12 +1,12 @@
+res://Scripts/CharacterComponents
+res://Scenes
 res://Assets/ShaderMaterial
 res://Scenes/CharacterComponents
 res://Scripts
-res://Scripts/CharacterComponents
 res://Assets
 res://Scenes/StateMachine/PlayerStates
 res://Scripts/StateMachine/PlayerStates
 C:/Users/Franz Joseph/Desktop/Stuff/GameDeveloping/HelmsDeep-Export
-res://Scenes
 res://Scenes/StateMachine/EnemyStates
 res://Scripts/StateMachine/EnemyStates
 res://Shaders

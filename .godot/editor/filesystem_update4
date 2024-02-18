@@ -24,3 +24,9 @@ res://Scenes/enemy.tscn
 res://Scenes/the_ramparts.tscn
 res://Scenes/CharacterComponents/attack_manager.tscn
 res://Assets/ShaderMaterial/HurtShaderMaterial.tres
+res://Assets/ShaderMaterial/HeadShaderMaterial.tres
+res://Assets/ShaderMaterial/BodyShaderMaterial.tres
+res://Assets/ShaderMaterial/LegsShaderMaterial.tres
+res://Scenes/CharacterComponents/hit_box.tscn
+res://Scenes/attack_highlighter.tscn
+res://Scripts/CharacterComponents/AttackHighlighter.cs

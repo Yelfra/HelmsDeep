@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6wafpqhkhvph"]
+
+[ext_resource type="Script" path="res://Scripts/CharacterComponents/AttackHighlighter.cs" id="1_jrt13"]
+
+[node name="AttackHighlighter" type="Node2D"]
+script = ExtResource("1_jrt13")
+
+[node name="Top" type="RayCast2D" parent="."]
+position = Vector2(0, -23)
+target_position = Vector2(130, 0)
+collision_mask = 4
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Middle" type="RayCast2D" parent="."]
+position = Vector2(0, -14)
+target_position = Vector2(130, 0)
+collision_mask = 4
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Bottom" type="RayCast2D" parent="."]
+position = Vector2(0, -5)
+target_position = Vector2(130, 0)
+collision_mask = 4
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false

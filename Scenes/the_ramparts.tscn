@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkrhmtmjv61ul"]
+[gd_scene load_steps=6 format=3 uid="uid://bkrhmtmjv61ul"]
 
 [ext_resource type="PackedScene" uid="uid://yc66owc7x0yi" path="res://Scenes/player.tscn" id="1_ee23h"]
 [ext_resource type="PackedScene" uid="uid://c0y7a2fve4ahh" path="res://Scenes/block.tscn" id="3_vjwqa"]
 [ext_resource type="PackedScene" uid="uid://8vmmmgyw2x62" path="res://Scenes/enemy_spawner.tscn" id="4_c48p5"]
+[ext_resource type="PackedScene" uid="uid://dudh0ki8j4bsx" path="res://Scenes/enemy.tscn" id="4_edyui"]
 [ext_resource type="PackedScene" uid="uid://c7ki1iq5hn52c" path="res://Scenes/game_manager.tscn" id="4_lk26m"]
 
 [node name="The Ramparts" type="Node"]
@@ -19,5 +20,9 @@ position = Vector2(8, 96)
 [node name="EnemySpawner" parent="Enemies" instance=ExtResource("4_c48p5")]
 position = Vector2(8, 85)
 maxSpawnedAtSameTime = 1
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("4_edyui")]
+position = Vector2(-23, 84)
+moveSpeed = 100.0
 
 [node name="GameManager" parent="." instance=ExtResource("4_lk26m")]

@@ -16,7 +16,7 @@ public partial class PlayerAttackState : State {
     private bool _attackInMotion = false; // Current attack is in motion.
     private bool _chargingAttack = false; // Attack is currently being charged.
 
-    private string _currentAttackBoxName = "Middle";
+    public string currentAttackBoxName = "Middle";
     private string _previousAttackBoxName = "Middle";
 
     private string _animationAttackHead1Charge = "AttackHead-1-Charge";
@@ -46,11 +46,11 @@ public partial class PlayerAttackState : State {
         // Aim Attack
         if (!_attackInMotion) {
             if (Input.IsActionPressed("aim_up")) {
-                _currentAttackBoxName = "Top";
+                currentAttackBoxName = "Top";
             } else if (Input.IsActionPressed("aim_down")) {
-                _currentAttackBoxName = "Bottom";
+                currentAttackBoxName = "Bottom";
             } else {
-                _currentAttackBoxName = "Middle";
+                currentAttackBoxName = "Middle";
             }
         }
 
@@ -61,10 +61,13 @@ public partial class PlayerAttackState : State {
         // Press Attack
         if (Input.IsActionPressed("attack") && !_attackInMotion) {
             _chargeTime += (float)delta;
-            if (!_chargingAttack || _currentAttackBoxName != _previousAttackBoxName) { // Executed only once per charge.
+
+            bool attackBoxChanged = (currentAttackBoxName != _previousAttackBoxName);
+            if (!_chargingAttack || attackBoxChanged) {
                 _chargingAttack = true;
+                _previousAttackBoxName = currentAttackBoxName;
+
                 PlayChargeAttackAnimation();
-                _previousAttackBoxName = _currentAttackBoxName;
             }
             if (_chargeTime >= _heavyChargeDurationSeconds) { // Executed during heavy charge.
                 //((Player)character).camera.Shake(0.05f);
@@ -94,15 +97,15 @@ public partial class PlayerAttackState : State {
     }
 
     private void QuickAttack() {
-        GD.Print("Quick Attack!");
+        //GD.Print("Quick Attack!");
         attackManager.PrepareAttack("Quick");
     }
     private void ChargedAttack() {
-        GD.Print("Charged Attack!");
+        //GD.Print("Charged Attack!");
         attackManager.PrepareAttack("Charged");
     }
     private void HeavyChargedAttack() {
-        GD.Print("Heavy Charged Attack!");
+        //GD.Print("Heavy Charged Attack!");
         attackManager.PrepareAttack("HeavyCharged");
     }
     private void LaunchAttack() {
@@ -125,7 +128,7 @@ public partial class PlayerAttackState : State {
     }
 
     public void AttackStart() {
-        attackManager.StartAttack(_currentAttackBoxName);
+        attackManager.StartAttack(currentAttackBoxName);
     }
     public void AttackEnd() {
         if (!_attackInMotion) {
@@ -142,7 +145,7 @@ public partial class PlayerAttackState : State {
     private void PlayAttackAnimation() {
         string attackAnimation = "";
 
-        switch (_currentAttackBoxName) {
+        switch (currentAttackBoxName) {
             case "Top": {
                 if (_attackFacingCamera) {
                     attackAnimation = _animationAttackHead1;
@@ -174,7 +177,7 @@ public partial class PlayerAttackState : State {
     private void PlayChargeAttackAnimation() {
         string attackAnimation = "";
 
-        switch (_currentAttackBoxName) {
+        switch (currentAttackBoxName) {
             case "Top": {
                 if (_attackFacingCamera) {
                     attackAnimation = _animationAttackHead1Charge;
