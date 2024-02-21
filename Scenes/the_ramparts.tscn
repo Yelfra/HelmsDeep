@@ -19,10 +19,25 @@ position = Vector2(8, 96)
 
 [node name="EnemySpawner" parent="Enemies" instance=ExtResource("4_c48p5")]
 position = Vector2(8, 85)
-maxSpawnedAtSameTime = 1
+maxSpawnedAtSameTime = 0
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("4_edyui")]
-position = Vector2(-23, 84)
-moveSpeed = 100.0
+position = Vector2(-27, 85)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("4_edyui")]
+position = Vector2(-53, 85)
+moveSpeed = 60.0
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("4_edyui")]
+position = Vector2(-82, 85)
+moveSpeed = 65.0
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource("4_edyui")]
+position = Vector2(223, 85)
+moveSpeed = 40.0
+
+[node name="Enemy5" parent="Enemies" instance=ExtResource("4_edyui")]
+position = Vector2(273, 85)
+moveSpeed = 35.0
 
 [node name="GameManager" parent="." instance=ExtResource("4_lk26m")]

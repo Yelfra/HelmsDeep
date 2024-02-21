@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dudh0ki8j4bsx"]
+[gd_scene load_steps=39 format=3 uid="uid://dudh0ki8j4bsx"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.cs" id="1_q0kdg"]
 [ext_resource type="Shader" path="res://Shaders/hurt_flash.gdshader" id="2_k22yu"]
@@ -19,6 +19,7 @@
 [ext_resource type="Material" uid="uid://h1nommre0epw" path="res://Assets/ShaderMaterial/LegsShaderMaterial.tres" id="8_5cy8o"]
 [ext_resource type="PackedScene" uid="uid://bnlr5qt6tni5e" path="res://Scenes/StateMachine/EnemyStates/enemy_death_state.tscn" id="9_i6yqm"]
 [ext_resource type="Texture2D" uid="uid://c8iwf7tkbfpyr" path="res://Assets/UrukHai_Head.png" id="10_mkacl"]
+[ext_resource type="PackedScene" uid="uid://gkmjy1tfct2o" path="res://Scenes/CharacterComponents/health_bar.tscn" id="11_4phcl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_472yt"]
 size = Vector2(12, 30)
@@ -841,7 +842,11 @@ frame = 88
 [node name="MotionManager" parent="." instance=ExtResource("4_x20dr")]
 
 [node name="HealthManager" parent="." node_paths=PackedStringArray("hurtState") instance=ExtResource("4_8jpea")]
+maxHealth = 4
 hurtState = NodePath("../StateMachine/HurtState")
+
+[node name="HealthBar" parent="HealthManager" instance=ExtResource("11_4phcl")]
+_healthPointColour = 2
 
 [node name="HitBox" parent="HealthManager" instance=ExtResource("4_0mh02")]
 metadata/_edit_group_ = true
@@ -903,6 +908,7 @@ character = NodePath("..")
 initialState = NodePath("EnemyPursueState")
 
 [node name="EnemyPursueState" parent="StateMachine" instance=ExtResource("4_0fxrs")]
+minDistance = 20
 
 [node name="Marker2D" type="Marker2D" parent="StateMachine/EnemyPursueState"]
 position = Vector2(25, 0)

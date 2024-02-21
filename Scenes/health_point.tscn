@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqqfsqaawclei"]
+[gd_scene load_steps=9 format=3 uid="uid://cqqfsqaawclei"]
 
 [ext_resource type="Shader" path="res://Shaders/hurt_flash.gdshader" id="1_pyc3u"]
-[ext_resource type="Texture2D" uid="uid://dwpw5a58roqwx" path="res://Assets/HealthBar.png" id="2_3d0kq"]
+[ext_resource type="Texture2D" uid="uid://nnalkf573ki3" path="res://Assets/HealthBarSmall.png" id="2_bd6yn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_10ohy"]
 resource_local_to_scene = true
@@ -9,7 +9,7 @@ shader = ExtResource("1_pyc3u")
 shader_parameter/flash_intensity = 0.0
 
 [sub_resource type="Animation" id="Animation_1b3pb"]
-resource_name = "HealthPoint-Loss"
+resource_name = "HealthPoint-Loss-0"
 length = 0.50001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -21,7 +21,63 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Vector2i(0, 0), Vector2i(1, 0)]
+"values": [Vector2i(0, 0), Vector2i(3, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/flash_intensity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_7a8ne"]
+resource_name = "HealthPoint-Loss-1"
+length = 0.50001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(1, 0), Vector2i(3, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/flash_intensity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_2aea0"]
+resource_name = "HealthPoint-Loss-2"
+length = 0.50001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(2, 0), Vector2i(3, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -65,7 +121,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gc35j"]
 _data = {
-"HealthPoint-Loss": SubResource("Animation_1b3pb"),
+"HealthPoint-Loss-0": SubResource("Animation_1b3pb"),
+"HealthPoint-Loss-1": SubResource("Animation_7a8ne"),
+"HealthPoint-Loss-2": SubResource("Animation_2aea0"),
 "RESET": SubResource("Animation_sdaxc")
 }
 
@@ -77,8 +135,8 @@ anchors_preset = 0
 z_index = 1
 texture_filter = 1
 material = SubResource("ShaderMaterial_10ohy")
-texture = ExtResource("2_3d0kq")
-hframes = 2
+texture = ExtResource("2_bd6yn")
+hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

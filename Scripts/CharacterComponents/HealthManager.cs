@@ -6,8 +6,9 @@ public partial class HealthManager : Node2D {
     public int currentHealth;
 
     [Export] float hurtDurationSeconds = 0.1f;
-    [Export] private uint _healthPointColumns = 5;
     [Export] State hurtState;
+
+    private HealthBar _healthBar;
 
     public bool hurt = false;
     public bool dead = false;
@@ -17,16 +18,16 @@ public partial class HealthManager : Node2D {
 
     private Character _character;
     private Timer _hurtTimer;
-    private GridContainer _healthPointGrid;
 
-    private Godot.Collections.Array<Control> _healthPoints = new Godot.Collections.Array<Control>();
 
     public override void _Ready() {
         currentHealth = (int)maxHealth;
 
         _character = GetParent<Character>();
-
-        InstantiateHPGrid();
+        _healthBar = GetNode<HealthBar>("HealthBar");
+        if (_healthBar != null) {
+            _healthBar.InstantiateHPGrid();
+        }
 
         _hurtTimer = GetNode<Timer>("HurtTimer");
         _hurtTimer.WaitTime = hurtDurationSeconds;
@@ -55,8 +56,8 @@ public partial class HealthManager : Node2D {
         int totalDamage = attack.damage + attack.bonusDamage;
 
         // Update Health GUI
-        for (int i = currentHealth - 1; i > 0 && i > currentHealth - totalDamage - 1; i--) {
-            _healthPoints[i].GetNode<AnimationPlayer>("AnimationPlayer").Play("HealthPoint-Loss");
+        if (_healthBar != null) {
+            _healthBar.LoseHitPoints(totalDamage);
         }
 
         // Update Health
@@ -65,7 +66,9 @@ public partial class HealthManager : Node2D {
         // Death
         if (currentHealth <= 0) {
             dead = true;
-            _healthPointGrid.QueueFree();
+            if (_healthBar != null) {
+                _healthBar.QueueFree();
+            }
             _character.Death();
             return true;
         }
@@ -87,18 +90,5 @@ public partial class HealthManager : Node2D {
 
     public void OnHurtTimerTimeout() {
         hurt = false;
-    }
-
-    private void InstantiateHPGrid() {
-        _healthPointGrid = GetNode<GridContainer>("HealthPointGrid");
-        _healthPointGrid.Columns = maxHealth < _healthPointColumns ? (int)maxHealth : (int)_healthPointColumns;
-
-        PackedScene healthPointScene = GD.Load<PackedScene>("res://Scenes/health_point.tscn");
-
-        for (int i = 0; i < maxHealth; i++) {
-            Control healthPoint = (Control)healthPointScene.Instantiate();
-            _healthPointGrid.AddChild(healthPoint);
-            _healthPoints.Add(healthPoint);
-        }
     }
 }

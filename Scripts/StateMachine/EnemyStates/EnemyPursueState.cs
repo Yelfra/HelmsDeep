@@ -6,12 +6,8 @@ public partial class EnemyPursueState : State {
     [Export] int maxDistance = 25;
     [Export] int minDistance = 15;
 
-    private CharacterBody2D _player;
-
     public override void Enter() {
         character.animationPlayer.Play("Run");
-
-        _player = GetTree().CurrentScene.GetNode<CharacterBody2D>("Player");
     }
 
     public override void Exit() {
@@ -26,7 +22,7 @@ public partial class EnemyPursueState : State {
     }
 
     private void PursuePlayer() {
-        character.horizontalDirection = _player.GlobalPosition.X - character.GlobalPosition.X;
+        character.horizontalDirection = ((Enemy)character).player.GlobalPosition.X - character.GlobalPosition.X;
         character.FaceDirection(character.horizontalDirection);
 
         float distance = Mathf.Abs(character.horizontalDirection);

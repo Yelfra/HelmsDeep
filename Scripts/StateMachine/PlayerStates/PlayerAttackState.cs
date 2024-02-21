@@ -131,9 +131,6 @@ public partial class PlayerAttackState : State {
         attackManager.StartAttack(currentAttackBoxName);
     }
     public void AttackEnd() {
-        if (!_attackInMotion) {
-            return;
-        }
         attackManager.EndAttack(_previousAttackBoxName);
         _attackInMotion = false;
     }
@@ -163,11 +160,7 @@ public partial class PlayerAttackState : State {
                 break;
             }
             default: {
-                //if (_attackFacingCamera) {
                 attackAnimation = _animationAttackTorso1;
-                //} else {
-                //attackAnimation = "Attack-2-Swing";
-                //}
                 break;
             }
         }
@@ -195,11 +188,7 @@ public partial class PlayerAttackState : State {
                 break;
             }
             default: {
-                //if (_attackFacingCamera) {
                 attackAnimation = _animationAttackTorso1Charge;
-                //} else {
-                //attackAnimation = "Attack-2-Swing";
-                //}
                 break;
             }
         }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://yc66owc7x0yi"]
+[gd_scene load_steps=45 format=3 uid="uid://yc66owc7x0yi"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_okncq"]
 [ext_resource type="Texture2D" uid="uid://by8v6m0pc7raj" path="res://Assets/Aragorn.png" id="2_gm0xv"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://6r6tcs3yrstr" path="res://Scenes/CharacterComponents/hit_boxes.tscn" id="7_27kog"]
 [ext_resource type="PackedScene" uid="uid://bifpqdt2juh28" path="res://Scenes/StateMachine/PlayerStates/player_move_state.tscn" id="7_kvoy7"]
 [ext_resource type="PackedScene" uid="uid://co6ec2x7dp3e4" path="res://Scenes/StateMachine/PlayerStates/player_attack_state.tscn" id="7_oxxbt"]
+[ext_resource type="PackedScene" uid="uid://gkmjy1tfct2o" path="res://Scenes/CharacterComponents/health_bar.tscn" id="7_qj310"]
 [ext_resource type="PackedScene" uid="uid://c6wafpqhkhvph" path="res://Scenes/attack_highlighter.tscn" id="9_yw5fk"]
 [ext_resource type="PackedScene" uid="uid://cs0u4741iakf3" path="res://Scenes/StateMachine/PlayerStates/player_block_state.tscn" id="12_2vn23"]
 
@@ -546,7 +547,10 @@ libraries = {
 [node name="MotionManager" parent="." instance=ExtResource("5_hy0ot")]
 
 [node name="HealthManager" parent="." instance=ExtResource("6_si1cx")]
+maxHealth = 20
 hurtDurationSeconds = 0.5
+
+[node name="HealthBar" parent="HealthManager" instance=ExtResource("7_qj310")]
 
 [node name="HitBox" parent="HealthManager" instance=ExtResource("7_27kog")]
 metadata/_edit_group_ = true
