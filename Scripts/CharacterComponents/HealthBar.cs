@@ -8,9 +8,10 @@ public partial class HealthBar : Area2D {
 
     public int currentLayer = 0;
 
-    private HealthManager _health;
+    protected HealthManager health;
     private Character _character;
 
+    protected Control healthPointDisplay;
     private HBoxContainer _topRow;
     private int _topRowNumberOfElements;
     private HBoxContainer _bottomRow;
@@ -22,22 +23,23 @@ public partial class HealthBar : Area2D {
     private Tween tween;
 
     public override void _Ready() {
-        _health = GetParent<HealthManager>();
-        _character = _health.GetParent<Character>();
+        health = GetParent<HealthManager>();
+        _character = health.GetParent<Character>();
 
         _topGhostCollider = GetNode<Area2D>("TopGhostCollider");
 
-        _topRow = GetNode<HBoxContainer>("TopRow");
-        _bottomRow = GetNode<HBoxContainer>("BottomRow");
+        healthPointDisplay = GetNode<Control>("HealthPointDisplay");
+        _topRow = healthPointDisplay.GetNode<HBoxContainer>("TopRow");
+        _bottomRow = healthPointDisplay.GetNode<HBoxContainer>("BottomRow");
     }
 
     public void InstantiateHPGrid() {
-        _topRowNumberOfElements = _health.maxHealth < _healthPointColumns ? (int)_health.maxHealth : Mathf.CeilToInt((float)_health.maxHealth / 2);
-       
+        _topRowNumberOfElements = health.maxHealth < _healthPointColumns ? (int)health.maxHealth : Mathf.CeilToInt((float)health.maxHealth / 2);
+
         PackedScene healthPointScene = GD.Load<PackedScene>("res://Scenes/health_point.tscn");
         Vector2 textureSize = Vector2.Zero;
 
-        for (int i = 0; i < _health.maxHealth; i++) {
+        for (int i = 0; i < health.maxHealth; i++) {
             Control healthPoint = (Control)healthPointScene.Instantiate();
 
             Sprite2D healthPointSprite = healthPoint.GetNode<Sprite2D>("Sprite2D");
@@ -112,16 +114,29 @@ public partial class HealthBar : Area2D {
         //tween.TweenCallback(Callable.From(() => ResolveCollision()));
     }
 
-    public void LoseHitPoints(int damage) {
-        for (int i = _health.currentHealth - 1; i > 0 && i > _health.currentHealth - damage - 1; i--) {
+    public void LoseHitPoints(int amount) {
+        for (int i = health.currentHealth - 1; i > 0 && i > health.currentHealth - amount - 1; i--) {
             if (i >= _topRowNumberOfElements) {
-                _bottomRow.GetChild(i -_topRowNumberOfElements)
+                _bottomRow.GetChild(i - _topRowNumberOfElements)
                     .GetNode<AnimationPlayer>("AnimationPlayer")
                     .Play("HealthPoint-Loss-" + _healthPointColour.ToString());
             } else {
                 _topRow.GetChild(i)
-                        .GetNode<AnimationPlayer>("AnimationPlayer")
-                        .Play("HealthPoint-Loss-" + _healthPointColour.ToString());
+                    .GetNode<AnimationPlayer>("AnimationPlayer")
+                    .Play("HealthPoint-Loss-" + _healthPointColour.ToString());
+            }
+        }
+    }
+    public void GainHitPoints(int amount) {
+        for (int i = health.currentHealth; i < health.currentHealth + amount; i++) {
+            if (i >= _topRowNumberOfElements) {
+                _bottomRow.GetChild(i - _topRowNumberOfElements)
+                    .GetNode<AnimationPlayer>("AnimationPlayer")
+                    .Play("HealthPoint-Gain-" + _healthPointColour.ToString());
+            } else {
+                _topRow.GetChild(i)
+                    .GetNode<AnimationPlayer>("AnimationPlayer")
+                    .Play("HealthPoint-Gain-" + _healthPointColour.ToString());
             }
         }
     }

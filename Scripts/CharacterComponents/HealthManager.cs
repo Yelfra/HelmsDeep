@@ -37,6 +37,10 @@ public partial class HealthManager : Node2D {
         if (invulnerable) {
             invulnerableTime += (float)delta;
         }
+        if (Input.IsActionJustPressed("block") && _character is Player && currentHealth < maxHealth) {
+            _healthBar.GainHitPoints(1);
+            currentHealth += 1;
+        }
     }
 
     public override void _PhysicsProcess(double delta) {

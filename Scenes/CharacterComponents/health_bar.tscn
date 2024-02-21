@@ -27,32 +27,42 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopGhostCollider"]
 shape = SubResource("RectangleShape2D_c5iwo")
 
-[node name="TopRow" type="HBoxContainer" parent="."]
+[node name="HealthPointDisplay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 7.0
+offset_bottom = 7.0
+
+[node name="TopRow" type="HBoxContainer" parent="HealthPointDisplay"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -9.0
-offset_top = 5.0
+offset_top = -2.0
 offset_right = 9.0
-offset_bottom = 5.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(9, 0)
 theme_override_constants/separation = 2
 alignment = 1
 
-[node name="BottomRow" type="HBoxContainer" parent="."]
+[node name="BottomRow" type="HBoxContainer" parent="HealthPointDisplay"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -9.0
-offset_top = 9.0
+offset_top = 2.0
 offset_right = 9.0
-offset_bottom = 9.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(9, 0)
 theme_override_constants/separation = 2
 alignment = 1

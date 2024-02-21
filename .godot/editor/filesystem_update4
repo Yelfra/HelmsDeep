@@ -29,3 +29,6 @@ res://Scripts/StateMachine/PlayerStates/PlayerBlockState.cs
 res://Scripts/StateMachine/PlayerStates/PlayerMoveState.cs
 res://Scripts/StateMachine/State.cs
 res://Scripts/StateMachine/StateMachine.cs
+res://Scenes/CharacterComponents/hit_boxes.tscn
+res://Scenes/CharacterComponents/player_health_bar.tscn
+res://Scripts/CharacterComponents/PlayerHealthBar.cs

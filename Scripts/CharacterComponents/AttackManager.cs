@@ -36,9 +36,9 @@ public partial class AttackManager : Node2D {
 
             if (hitBox.RelayAttack(preparedAttack)) {
                 if (GetParent() is Player playerAgressor) {
-                    playerAgressor.camera.Shake(preparedAttack.damage);
+                    playerAgressor.camera.AddTrauma(0.2f); // Shake(preparedAttack.damage);
                 } else if (hitBox.character is Player playerVictim) {
-                    playerVictim.camera.Shake(preparedAttack.damage);
+                    playerVictim.camera.AddTrauma(0.2f); // Shake(preparedAttack.damage);
                 }
             }
         }
